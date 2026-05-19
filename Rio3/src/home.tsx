@@ -168,6 +168,66 @@ const LocationBlock = ({ onBook }: { onBook: () => void }) => {
   );
 };
 
+const DirectorBlock: React.FC = () => (
+  <section className="section">
+    <div className="shell">
+      <div className="director-grid">
+        <div className="director-figure">
+          <image-slot id="director-photo" shape="rect" radius="0" placeholder="Medical director portrait" />
+        </div>
+        <div>
+          <span className="eyebrow">Medical Director</span>
+          <p className="quote" style={{ marginTop: 24 }}>
+            "We don't guess. We run the labs, read your history, and build a protocol that fits <em>you</em> — not a template."
+          </p>
+          <dl className="director-meta">
+            <div>
+              <dt>Credentials</dt>
+              <dd>Board-certified, integrative medicine</dd>
+            </div>
+            <div>
+              <dt>At Rio3 since</dt>
+              <dd>2019</dd>
+            </div>
+            <div>
+              <dt>Languages</dt>
+              <dd>English · Português · Español</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+const TestimonialsBlock: React.FC = () => {
+  const { testimonials } = window.RIO3_DATA;
+  return (
+    <section className="section testimonials">
+      <div className="shell">
+        <div className="section-head">
+          <span className="eyebrow">Patient stories</span>
+          <div>
+            <h2>Results that <em>speak for themselves.</em></h2>
+          </div>
+        </div>
+        <div className="testi-grid">
+          {testimonials.map((t, i) => (
+            <div key={i} className="testi">
+              <div className="stars">{"★".repeat(t.stars)}</div>
+              <blockquote>"{t.quote}"</blockquote>
+              <div className="testi-foot">
+                <span className="name">{t.name}</span>
+                <span className="meta">{t.meta}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const Home = ({ onBook, setPage, heroVariant }: { onBook: () => void; setPage: (p: string) => void; heroVariant: string }) => (
   <>
     {heroVariant === "b" && <HeroB onBook={onBook} setPage={setPage} />}
@@ -182,4 +242,4 @@ const Home = ({ onBook, setPage, heroVariant }: { onBook: () => void; setPage: (
   </>
 );
 
-Object.assign(window, { Home, TreatmentCard });
+Object.assign(window, { Home, TreatmentCard, DirectorBlock, TestimonialsBlock });
