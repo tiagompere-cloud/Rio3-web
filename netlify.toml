@@ -1,0 +1,4 @@
+[build]
+  base    = "Rio3"
+  publish = "."
+  # No build command — React + Babel load from CDN
