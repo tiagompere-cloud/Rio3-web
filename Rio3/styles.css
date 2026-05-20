@@ -679,8 +679,11 @@ p { margin: 0; }
   .section-head { grid-template-columns: 1fr; gap: 20px; margin-bottom: 40px; }
 
   /* Director */
-  .director-grid { grid-template-columns: 1fr; gap: 36px; }
+  .director-grid { grid-template-columns: 1fr; gap: 36px; align-items: start; }
   .director-figure { aspect-ratio: 3/2; }
+  .director-figure image-slot { display: block; }
+  .director-meta { flex-wrap: wrap; gap: 20px; }
+  .director-meta > div { min-width: 140px; }
 
   /* About */
   .about-intro { padding: 60px 0 48px; }
