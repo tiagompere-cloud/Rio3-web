@@ -18,6 +18,7 @@ const TopBar: FC = () => {
 };
 
 const Nav: React.FC<NavProps> = ({ page, setPage, onBook }) => {
+  const [open, setOpen] = React.useState(false);
   const links: { id: PageId; label: string }[] = [
     { id: "home", label: "Home" },
     { id: "treatments", label: "Treatments" },
@@ -25,39 +26,44 @@ const Nav: React.FC<NavProps> = ({ page, setPage, onBook }) => {
     { id: "about", label: "About" },
     { id: "contact", label: "Visit" },
   ];
+  const close = () => setOpen(false);
   return (
     <nav className="nav">
       <div className="shell">
-        <a onClick={() => setPage("home")} style={{ cursor: "pointer" }}>
+        <a onClick={() => { setPage("home"); close(); }} style={{ cursor: "pointer" }}>
           <LogoSlot />
         </a>
-        <div className="nav-links">
+        <div className={`nav-links${open ? " open" : ""}`}>
           {links.map((l) => (
             <a
               key={l.id}
               className={`nav-link ${page === l.id ? "active" : ""}`}
-              onClick={() => setPage(l.id)}
+              onClick={() => { setPage(l.id); close(); }}
               style={{ cursor: "pointer" }}
             >
               {l.label}
             </a>
           ))}
         </div>
-        <div className="nav-cta">
+        <div className={`nav-cta${open ? " open" : ""}`}>
           <a
             className="btn btn-ghost"
             href="#"
             onClick={(e) => {
               e.preventDefault();
               setPage("treatments");
+              close();
             }}
           >
             Browse treatments
           </a>
-          <button className="btn btn-primary" onClick={onBook}>
+          <button className="btn btn-primary" onClick={() => { onBook(); close(); }}>
             Book a visit <Arrow />
           </button>
         </div>
+        <button className="nav-hamburger" onClick={() => setOpen(!open)} aria-label="Menu">
+          {open ? "✕" : "☰"}
+        </button>
       </div>
     </nav>
   );
