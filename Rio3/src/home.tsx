@@ -24,8 +24,9 @@ const TreatmentsBlock = ({ onBook, setPage }: { onBook: () => void; setPage: (p:
   const [cat, setCat] = React.useState("all");
 
   const tabs = [{ id: "all", label: "All" }, ...categories];
+  const { featuredIds } = window.RIO3_DATA;
   const list = cat === "all"
-    ? categories.flatMap(c => treatments.filter(t => t.cat === c.id).slice(0, 2)).slice(0, 6)
+    ? featuredIds.map(id => treatments.find(t => t.id === id)!).filter(Boolean)
     : treatments.filter(t => t.cat === cat).slice(0, 6);
 
   return (
