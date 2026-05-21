@@ -36,7 +36,7 @@ const RIO3_DATA: Rio3Data = {
     {
       id: "intestinal", cat: "ozone", name: "Intestinal Ozone (Enema + Insufflation)",
       summary: "Our most-requested protocol. Rectal ozone insufflation paired with an enema to support gut, liver and detoxification pathways. Offered as a single session or as a 4-session program (deworming, liver-intestine, or heavy-metal track).",
-      duration: "45 min", price: 110,
+      duration: "45 min", price: 125,
       includes: ["Enema + ozone insufflation", "Single session or 4-session program", "Probiotic finish on full course"],
       photoTag: "Intestinal ozone room",
     },
@@ -315,7 +315,7 @@ const RIO3_DATA: Rio3Data = {
   ],
 
   // For the homepage 6-card preview — top revenue drivers across categories.
-  featuredIds: ["intestinal", "hemo-maior", "plasma-prolozone-uni", "iv-vitc-high", "iv-iron-vitc", "consult-hormonal"],
+  featuredIds: ["consult-first", "intestinal", "hemo-maior", "plasma-prolozone-uni", "iv-vitc-high", "iv-iron-vitc"],
 };
 
 window.RIO3_DATA = RIO3_DATA;
