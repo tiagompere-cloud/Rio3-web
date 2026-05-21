@@ -33,6 +33,7 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+html { background: var(--ink); }
 body {
   background: var(--bg);
   color: var(--ink);
