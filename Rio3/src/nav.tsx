@@ -22,7 +22,7 @@ const Nav: React.FC<NavProps> = ({ page, setPage, onBook }) => {
   const links: { id: PageId; label: string }[] = [
     { id: "home", label: "Home" },
     { id: "treatments", label: "Treatments" },
-    { id: "memberships", label: "Memberships" },
+    { id: "memberships", label: "Programs" },
     { id: "about", label: "About" },
     { id: "contact", label: "Visit" },
   ];
@@ -118,7 +118,7 @@ const Footer: React.FC<FooterProps> = ({ setPage, onBook }) => {
             <h5>Care</h5>
             <ul>
               <li><a onClick={() => setPage("treatments")} style={{ cursor: "pointer" }}>All treatments</a></li>
-              <li><a onClick={() => setPage("memberships")} style={{ cursor: "pointer" }}>Memberships</a></li>
+              <li><a onClick={() => setPage("memberships")} style={{ cursor: "pointer" }}>Programs</a></li>
               <li><a onClick={() => setPage("treatments")} style={{ cursor: "pointer" }}>Conditions we treat</a></li>
               <li><a onClick={onBook} style={{ cursor: "pointer" }}>Book a consultation</a></li>
             </ul>

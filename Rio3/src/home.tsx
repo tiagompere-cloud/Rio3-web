@@ -9,7 +9,7 @@ const TreatmentCard = ({ t, onBook }: { t: Treatment; onBook: () => void }) => (
       <p className="tc-desc">{t.summary}</p>
       <div className="tc-foot">
         <span style={{ color: "var(--ink-mute)", fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.1em" }}>
-          {t.duration} &middot; from ${t.price}
+          {t.duration}
         </span>
         <a onClick={onBook} style={{ cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6, fontWeight: 500 }}>
           Book <Arrow size={12} />
@@ -69,54 +69,41 @@ const TreatmentsBlock = ({ onBook, setPage }: { onBook: () => void; setPage: (p:
   );
 };
 
-const MembershipsBlock = ({ onBook }: { onBook: () => void }) => {
-  const { tiers } = window.RIO3_DATA;
-  const [annual, setAnnual] = React.useState(false);
-
-  return (
-    <section className="section memberships">
-      <div className="shell">
-        <div className="section-head">
-          <span className="eyebrow">Memberships</span>
-          <div>
-            <h2>Ongoing care, <em>built-in.</em></h2>
-            <p className="lede" style={{ marginTop: 22 }}>
-              For patients ready to make wellness a steady practice. Every plan includes
-              member pricing on the full menu, priority access, and a dedicated clinician.
-            </p>
-          </div>
-        </div>
-
-        <div className="bill-toggle">
-          <button className={!annual ? "active" : ""} onClick={() => setAnnual(false)}>Monthly</button>
-          <button className={annual ? "active" : ""} onClick={() => setAnnual(true)}>
-            Annual <span className="save">SAVE 14%</span>
-          </button>
-        </div>
-
-        <div className="tier-grid">
-          {tiers.map(t => (
-            <div key={t.name} className={`tier ${t.featured ? "featured" : ""}`}>
-              {t.featured && <span className="badge">Most popular</span>}
-              <div className="tier-name">{t.name}</div>
-              <div className="tier-tag">{t.tag}</div>
-              <div className="tier-price">
-                <span className="price-num">${annual ? t.annual : t.monthly}</span>
-                <span className="price-cents">/ month{annual && ", billed annually"}</span>
-              </div>
-              <ul className="tier-feat">
-                {t.features.map(f => <li key={f}>{f}</li>)}
-              </ul>
-              <button className="btn btn-primary" onClick={onBook} style={{ marginTop: "auto", justifyContent: "center" }}>
-                Start {t.name} <Arrow />
-              </button>
-            </div>
-          ))}
+const ProgramsBlock = ({ onBook }: { onBook: () => void }) => (
+  <section className="section memberships">
+    <div className="shell">
+      <div className="section-head">
+        <span className="eyebrow">Programs</span>
+        <div>
+          <h2>Structured programs, <em>built around you.</em></h2>
+          <p className="lede" style={{ marginTop: 22 }}>
+            We offer three physician-guided program tracks — weight optimization,
+            detox &amp; gut restoration, and performance &amp; longevity. Each is designed
+            as a complete course of care, not a menu of single sessions.
+          </p>
         </div>
       </div>
-    </section>
-  );
-};
+
+      <div className="tier-grid">
+        {[
+          { name: "Metabolic Reset", tag: "Weight Optimization", desc: "GLP-1 / tirzepatide-based protocols with physician oversight, metabolic IVs, and body composition monitoring. 6–12 month commitment." },
+          { name: "Total Reset", tag: "12-Week Detox", desc: "Three-phase intestinal, heavy-metal, and microbial cleanse. Clinical supervision throughout.", featured: true },
+          { name: "Performance & Longevity", tag: "IV + Lab Monitoring", desc: "NAD+, high-dose IV nutrients, and advanced lab panels for athletes, executives, and longevity-focused patients." },
+        ].map(p => (
+          <div key={p.name} className={`tier ${p.featured ? "featured" : ""}`}>
+            {p.featured && <span className="badge">Most requested</span>}
+            <div className="tier-name">{p.name}</div>
+            <div className="tier-tag">{p.tag}</div>
+            <p style={{ fontSize: 14, lineHeight: 1.6, opacity: 0.8, flexGrow: 1, marginTop: 16 }}>{p.desc}</p>
+            <button className="btn btn-primary" onClick={onBook} style={{ marginTop: 28, justifyContent: "center" }}>
+              Learn more <Arrow />
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 const LocationBlock = ({ onBook }: { onBook: () => void }) => {
   const { brand, hours } = window.RIO3_DATA;
@@ -236,7 +223,7 @@ const Home = ({ onBook, setPage, heroVariant }: { onBook: () => void; setPage: (
     {(heroVariant !== "b" && heroVariant !== "c") && <HeroA onBook={onBook} setPage={setPage} />}
     <Marquee />
     <TreatmentsBlock onBook={onBook} setPage={setPage} />
-    <MembershipsBlock onBook={onBook} />
+    <ProgramsBlock onBook={onBook} />
     <DirectorBlock />
     <TestimonialsBlock />
     <LocationBlock onBook={onBook} />
