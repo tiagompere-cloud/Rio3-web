@@ -5,8 +5,15 @@ const API = (path: string) => `${BOOKING_CONFIG.apiBase || ""}${path}`;
 const BOOKING_REASONS: readonly BookingReason[] = [
   {
     id: "consult",
-    title: "Initial consultation",
-    desc: "60 min · with clinician · required for first-time patients",
+    title: "Initial consultation — In person",
+    desc: "90 min · in-clinic · required for all new patients",
+    price: "$90",
+    squareServiceVariationId: "",
+  },
+  {
+    id: "consult-online",
+    title: "Initial consultation — Online",
+    desc: "90 min · secure video · for patients outside South Florida",
     price: "$90",
     squareServiceVariationId: "",
   },
@@ -29,13 +36,6 @@ const BOOKING_REASONS: readonly BookingReason[] = [
     title: "Regenerative & Joint",
     desc: "Plasma Prolozone, PRP, prolozone, laser",
     price: "from $140",
-    squareServiceVariationId: "",
-  },
-  {
-    id: "membership",
-    title: "Membership inquiry",
-    desc: "Help me pick a plan",
-    price: "Free",
     squareServiceVariationId: "",
   },
 ];
