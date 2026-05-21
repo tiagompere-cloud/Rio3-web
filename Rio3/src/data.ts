@@ -315,7 +315,7 @@ const RIO3_DATA: Rio3Data = {
   ],
 
   // For the homepage 6-card preview — top revenue drivers across categories.
-  featuredIds: ["consult-first", "intestinal", "hemo-maior", "plasma-prolozone-uni", "iv-vitc-high", "iv-iron-vitc"],
+  featuredIds: ["consult-first", "consult-bloodwork", "intestinal", "hemo-maior", "plasma-prolozone-uni", "iv-vitc-high"],
 };
 
 window.RIO3_DATA = RIO3_DATA;
