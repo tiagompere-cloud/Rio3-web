@@ -55,6 +55,7 @@ const Rio3Tweaks = ({ tweaks, setTweak }: { tweaks: any; setTweak: (k: string, v
 const App = () => {
   const [page, setPage] = React.useState("home");
   const [booking, setBooking] = React.useState(false);
+  const [consult, setConsult] = React.useState(false);
 
   const [tweaks, setTweak] = useTweaks(/*EDITMODE-BEGIN*/{
     "hero": "a",
@@ -89,6 +90,7 @@ const App = () => {
   }, [tweaks]);
 
   const onBook = () => setBooking(true);
+  const onConsult = () => setConsult(true);
 
   React.useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }); }, [page]);
 
@@ -99,13 +101,14 @@ const App = () => {
 
       {page === "home" && <Home onBook={onBook} setPage={setPage} heroVariant={tweaks.hero} />}
       {page === "treatments" && <TreatmentsPage onBook={onBook} />}
-      {page === "memberships" && <MembershipsPage onBook={onBook} />}
+      {page === "memberships" && <MembershipsPage onBook={onConsult} />}
       {page === "about" && <AboutPage onBook={onBook} />}
       {page === "contact" && <ContactPage onBook={onBook} />}
 
       <Footer setPage={setPage} onBook={onBook} />
 
       {booking && <BookingModal onClose={() => setBooking(false)} />}
+      {consult && <ConsultModal onClose={() => setConsult(false)} />}
 
       <Rio3Tweaks tweaks={tweaks} setTweak={setTweak} />
     </div>

@@ -553,13 +553,16 @@ p { margin: 0; }
 .form-grid .full { grid-column: 1 / -1; }
 .field { display: flex; flex-direction: column; gap: 6px; }
 .field label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); }
-.field input, .field textarea {
+.field input, .field textarea, .field select {
   background: var(--paper); border: 1px solid var(--line);
   padding: 12px 14px; border-radius: 8px; font-size: 14px; font-family: inherit;
   color: var(--ink);
 }
-.field input:focus, .field textarea:focus { outline: none; border-color: var(--ink); }
+.field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--ink); }
 .field textarea { resize: vertical; min-height: 80px; }
+.field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
+
+.consult-modal { grid-template-columns: 1fr; max-width: 560px; }
 
 .modal-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); }
 .modal-foot .step-meta { font-size: 12px; color: var(--ink-mute); font-family: var(--mono); }

@@ -213,6 +213,7 @@ interface Window {
 
   // Booking
   BookingModal: React.FC<BookingModalProps>;
+  ConsultModal: React.FC<BookingModalProps>;
 
   // Tweaks panel API
   useTweaks: <T extends TweakDefaults>(defaults: T) => [T, SetTweak];
