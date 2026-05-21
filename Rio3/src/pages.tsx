@@ -70,93 +70,82 @@ const TreatmentsPage = ({ onBook }: { onBook: () => void }) => {
   );
 };
 
-const MembershipsPage = ({ onBook }: { onBook: () => void }) => (
-  <>
-    <section className="page-hero">
-      <div className="shell">
-        <div className="page-hero-grid">
-          <div>
-            <span className="eyebrow">Programs</span>
-            <h1 style={{ marginTop: 28 }}>Structured care, <em>start to finish.</em></h1>
-            <p className="lede" style={{ marginTop: 24 }}>
-              Our three program tracks go deeper than individual sessions. Each is a
-              physician-designed course of care with a clear protocol, timeline, and outcome
-              goal.
-            </p>
-          </div>
-          <div className="page-meta">
-            <div className="row"><span className="label">Tracks</span><span>3 program categories</span></div>
-            <div className="row"><span className="label">Duration</span><span>12 weeks – 12 months</span></div>
-            <div className="row"><span className="label">Oversight</span><span>Physician-guided throughout</span></div>
-            <div className="row"><span className="label">Pricing</span><span>Contact us for current rates</span></div>
+const MembershipsPage = ({ onBook }: { onBook: () => void }) => {
+  const { programs } = window.RIO3_DATA;
+  return (
+    <>
+      <section className="page-hero">
+        <div className="shell">
+          <div className="page-hero-grid">
+            <div>
+              <span className="eyebrow">Programs</span>
+              <h1 style={{ marginTop: 28 }}>Structured care, <em>start to finish.</em></h1>
+              <p className="lede" style={{ marginTop: 24 }}>
+                Three physician-guided program tracks — each a complete course of care with
+                a clear protocol, timeline, and measurable outcome. Not single sessions;
+                a committed plan.
+              </p>
+            </div>
+            <div className="page-meta">
+              <div className="row"><span className="label">Tracks</span><span>3 program categories</span></div>
+              <div className="row"><span className="label">Duration</span><span>12 weeks – 12 months</span></div>
+              <div className="row"><span className="label">Oversight</span><span>Physician-guided throughout</span></div>
+              <div className="row"><span className="label">Pricing</span><span>Contact us for current rates</span></div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section className="section memberships" style={{ paddingTop: 60 }}>
-      <div className="shell">
-        <div className="tier-grid">
-          {[
-            {
-              name: "Metabolic Reset",
-              tag: "Weight Optimization · 6–12 months",
-              features: [
-                "Physician evaluation & ongoing oversight",
-                "Weekly GLP-1 / tirzepatide protocol",
-                "Dose monitoring & nutritional guidance",
-                "Digestive side-effect support",
-                "Optional metabolic IVs & hormone optimization",
-                "Body composition monitoring",
-              ],
-            },
-            {
-              name: "Total Reset",
-              tag: "12-Week Detox · 3 phases",
-              featured: true,
-              features: [
-                "Phase 1: Intestinal reset — ozone + enemas (4 sessions)",
-                "Phase 2: Heavy metal detox — mineral enemas + supplements",
-                "Phase 3: Microbial cleanse — antiparasitic herbs + ozone",
-                "Initial clinical evaluation",
-                "Ongoing monitoring & protocol adjustments",
-                "Optional before/after lab work",
-              ],
-            },
-            {
-              name: "Performance & Longevity",
-              tag: "IV Therapy + Lab Monitoring",
-              features: [
-                "Comprehensive lab panel & consultation",
-                "4, 8, or 12 IV therapy sessions",
-                "NAD+ support & advanced IV blends",
-                "Before/after data tracking",
-                "Cardiometabolic biomarkers",
-                "Cellular recovery support",
-              ],
-            },
-          ].map(p => (
-            <div key={p.name} className={`tier ${p.featured ? "featured" : ""}`}>
-              {p.featured && <span className="badge">Most requested</span>}
-              <div className="tier-name">{p.name}</div>
-              <div className="tier-tag">{p.tag}</div>
-              <ul className="tier-feat">
-                {p.features.map(f => <li key={f}>{f}</li>)}
-              </ul>
-              <button className="btn btn-primary" onClick={onBook} style={{ marginTop: "auto", justifyContent: "center" }}>
-                Book a consultation <Arrow />
-              </button>
+      <section className="section memberships" style={{ paddingTop: 60, paddingBottom: 80 }}>
+        <div className="shell">
+          {programs.map((prog, pi) => (
+            <div key={prog.id} className="prog-track">
+              <div className="prog-track-header">
+                <div>
+                  <span className="eyebrow" style={{ color: "rgba(246,244,239,0.5)" }}>
+                    {String(pi + 1).padStart(2, "0")} / {String(programs.length).padStart(2, "0")}
+                  </span>
+                  <div className="prog-track-name">{prog.name}</div>
+                  <div className="prog-track-meta">{prog.tagline} · {prog.duration}</div>
+                </div>
+                <p className="prog-track-desc">{prog.description}</p>
+              </div>
+
+              <div className="tier-grid">
+                {prog.tiers.map(t => (
+                  <div key={t.id} className={`tier ${t.featured ? "featured" : ""}`}>
+                    {t.featured && <span className="badge">Recommended</span>}
+                    {t.label && (
+                      <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.18em", color: "rgba(246,244,239,0.4)", marginBottom: 10 }}>
+                        {t.label}
+                      </div>
+                    )}
+                    <div className="tier-name" style={{ fontSize: 26 }}>{t.name}</div>
+                    <div className="tier-tag">{t.tag}</div>
+                    <ul className="tier-feat">
+                      {t.features.map(f => <li key={f}>{f}</li>)}
+                    </ul>
+                    <button className="btn btn-primary" onClick={onBook} style={{ marginTop: "auto", justifyContent: "center" }}>
+                      Book a consultation <Arrow />
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
-        </div>
 
-        <div style={{ marginTop: 80, textAlign: "center", color: "rgba(246,244,239,0.6)", fontSize: 13 }}>
-          Not sure which track fits? <a onClick={onBook} style={{ cursor: "pointer", borderBottom: "1px solid rgba(246,244,239,0.3)", color: "var(--bg)" }}>Book a 20-minute clinician call</a> and we&apos;ll help you decide.
+          <div style={{ textAlign: "center", color: "rgba(246,244,239,0.6)", fontSize: 13 }}>
+            Not sure which track fits?{" "}
+            <a onClick={onBook} style={{ cursor: "pointer", borderBottom: "1px solid rgba(246,244,239,0.3)", color: "var(--bg)" }}>
+              Book a 20-minute clinician call
+            </a>{" "}
+            and we&apos;ll help you decide.
+          </div>
         </div>
-      </div>
-    </section>
-  </>
-);
+      </section>
+    </>
+  );
+};
 
 const AboutPage = ({ onBook }: { onBook: () => void }) => (
   <>

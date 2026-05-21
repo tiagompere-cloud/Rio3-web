@@ -69,41 +69,48 @@ const TreatmentsBlock = ({ onBook, setPage }: { onBook: () => void; setPage: (p:
   );
 };
 
-const ProgramsBlock = ({ onBook }: { onBook: () => void }) => (
-  <section className="section memberships">
-    <div className="shell">
-      <div className="section-head">
-        <span className="eyebrow">Programs</span>
-        <div>
-          <h2>Structured programs, <em>built around you.</em></h2>
-          <p className="lede" style={{ marginTop: 22 }}>
-            We offer three physician-guided program tracks — weight optimization,
-            detox &amp; gut restoration, and performance &amp; longevity. Each is designed
-            as a complete course of care, not a menu of single sessions.
-          </p>
+const ProgramsBlock = ({ onBook, setPage }: { onBook: () => void; setPage: (p: string) => void }) => {
+  const { programs } = window.RIO3_DATA;
+  return (
+    <section className="section memberships">
+      <div className="shell">
+        <div className="section-head">
+          <span className="eyebrow">Programs</span>
+          <div>
+            <h2>Structured care, <em>start to finish.</em></h2>
+            <p className="lede" style={{ marginTop: 22 }}>
+              Three physician-guided program tracks — not single sessions, but complete
+              courses of care with a protocol, timeline, and measurable outcome.
+            </p>
+          </div>
+        </div>
+
+        <div className="tier-grid">
+          {programs.map(p => (
+            <div key={p.id} className="tier">
+              <div className="tier-name">{p.name}</div>
+              <div className="tier-tag">{p.tagline} · {p.duration}</div>
+              <p style={{ fontSize: 14, lineHeight: 1.65, color: "rgba(246,244,239,0.75)", flexGrow: 1, margin: "18px 0 24px" }}>
+                {p.description}
+              </p>
+              <ul className="tier-feat" style={{ marginBottom: 28 }}>
+                {p.tiers.map(t => (
+                  <li key={t.id} style={{ fontSize: 13 }}>
+                    {t.label ? `${t.label} — ${t.name}` : t.name}
+                    {t.featured && <span style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.12em", marginLeft: 8, opacity: 0.6 }}>RECOMMENDED</span>}
+                  </li>
+                ))}
+              </ul>
+              <button className="btn btn-primary" onClick={() => setPage("memberships")} style={{ justifyContent: "center" }}>
+                View program <Arrow />
+              </button>
+            </div>
+          ))}
         </div>
       </div>
-
-      <div className="tier-grid">
-        {[
-          { name: "Metabolic Reset", tag: "Weight Optimization", desc: "GLP-1 / tirzepatide-based protocols with physician oversight, metabolic IVs, and body composition monitoring. 6–12 month commitment." },
-          { name: "Total Reset", tag: "12-Week Detox", desc: "Three-phase intestinal, heavy-metal, and microbial cleanse. Clinical supervision throughout.", featured: true },
-          { name: "Performance & Longevity", tag: "IV + Lab Monitoring", desc: "NAD+, high-dose IV nutrients, and advanced lab panels for athletes, executives, and longevity-focused patients." },
-        ].map(p => (
-          <div key={p.name} className={`tier ${p.featured ? "featured" : ""}`}>
-            {p.featured && <span className="badge">Most requested</span>}
-            <div className="tier-name">{p.name}</div>
-            <div className="tier-tag">{p.tag}</div>
-            <p style={{ fontSize: 14, lineHeight: 1.6, opacity: 0.8, flexGrow: 1, marginTop: 16 }}>{p.desc}</p>
-            <button className="btn btn-primary" onClick={onBook} style={{ marginTop: 28, justifyContent: "center" }}>
-              Learn more <Arrow />
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 const LocationBlock = ({ onBook }: { onBook: () => void }) => {
   const { brand, hours } = window.RIO3_DATA;
@@ -223,7 +230,7 @@ const Home = ({ onBook, setPage, heroVariant }: { onBook: () => void; setPage: (
     {(heroVariant !== "b" && heroVariant !== "c") && <HeroA onBook={onBook} setPage={setPage} />}
     <Marquee />
     <TreatmentsBlock onBook={onBook} setPage={setPage} />
-    <ProgramsBlock onBook={onBook} />
+    <ProgramsBlock onBook={onBook} setPage={setPage} />
     <DirectorBlock />
     <TestimonialsBlock />
     <LocationBlock onBook={onBook} />

@@ -42,13 +42,22 @@ interface Treatment {
   photoTag: string;
 }
 
-interface Tier {
+interface ProgramTier {
+  id: string;
   name: string;
   tag: string;
-  monthly: number;
-  annual: number;
+  label?: string;
   featured?: boolean;
   features: string[];
+}
+
+interface Program {
+  id: string;
+  name: string;
+  tagline: string;
+  duration: string;
+  description: string;
+  tiers: ProgramTier[];
 }
 
 interface Testimonial {
@@ -63,7 +72,7 @@ interface Rio3Data {
   hours: HourRow[];
   categories: Category[];
   treatments: Treatment[];
-  tiers: Tier[];
+  programs: Program[];
   testimonials: Testimonial[];
   featuredIds: string[];
 }

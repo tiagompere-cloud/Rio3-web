@@ -337,6 +337,16 @@ p { margin: 0; }
 .tier.featured .btn-primary { background: var(--ink); color: var(--bg); }
 .tier.featured .btn-primary:hover { background: var(--sage-deep); }
 
+/* ---------- Program tracks (Programs page) ---------- */
+.prog-track { margin-bottom: 72px; padding-bottom: 72px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.prog-track:last-of-type { margin-bottom: 60px; padding-bottom: 0; border-bottom: none; }
+.prog-track-header { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; margin-bottom: 36px; }
+@media (max-width: 768px) { .prog-track-header { grid-template-columns: 1fr; gap: 16px; } }
+.prog-track-name { font-family: var(--display); font-size: 42px; font-weight: 300; color: var(--bg); margin: 10px 0 6px; line-height: 1.05; }
+.prog-track-meta { font-size: 13px; color: rgba(246,244,239,0.55); letter-spacing: 0.04em; }
+.prog-track-desc { font-size: 15px; color: rgba(246,244,239,0.78); line-height: 1.7; margin: 0; align-self: end; }
+@media (max-width: 768px) { .prog-track-name { font-size: 32px; } }
+
 /* ---------- Doctor / About strip ---------- */
 .director-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: center; }
 .director-figure { aspect-ratio: 4/5; border-radius: var(--radius-lg); overflow: hidden; background: var(--ink); position: relative; }
