@@ -128,7 +128,7 @@ interface TweakOption<T = string> {
 
 // ── React / Component prop shapes ──────────────────────────────────
 
-type PageId = "home" | "treatments" | "memberships" | "about" | "contact";
+type PageId = "home" | "treatments" | "programs" | "memberships" | "about" | "contact";
 
 interface PageProps {
   onBook: () => void;
@@ -137,6 +137,7 @@ interface PageProps {
 
 interface HomeProps {
   onBook: () => void;
+  onBookTreatment: () => void;
   setPage: (p: PageId) => void;
   heroVariant: "a" | "b" | "c";
 }
@@ -164,6 +165,7 @@ interface TreatmentCardProps {
 
 interface BookingModalProps {
   onClose: () => void;
+  mode?: "consultation" | "treatment";
 }
 
 // ── Window globals (cross-file glue) ───────────────────────────────
@@ -197,6 +199,7 @@ interface Window {
   TreatmentCard: React.FC<TreatmentCardProps>;
 
   // Pages
+  ProgramsPage: React.FC<PageProps>;
   TreatmentsPage: React.FC<PageProps>;
   MembershipsPage: React.FC<PageProps>;
   AboutPage: React.FC<PageProps>;

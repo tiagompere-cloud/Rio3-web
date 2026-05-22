@@ -1,4 +1,10 @@
 const BOOKING_CONFIG: BookingConfig = window.RIO3_BOOKING_CONFIG || { mode: "demo", apiBase: "" };
+
+const ASSESSMENT_OPTIONS = [
+  { id: "inperson",  title: "In-person",  desc: "Come to our Deerfield Beach clinic for your initial assessment" },
+  { id: "online",    title: "Online",     desc: "Start with a secure video consultation from anywhere" },
+  { id: "done",      title: "Yes, I've already had a consultation", desc: "I've completed my initial assessment and I'm ready to book" },
+] as const;
 const IS_LIVE = BOOKING_CONFIG.mode === "live";
 const API = (path: string) => `${BOOKING_CONFIG.apiBase || ""}${path}`;
 
@@ -67,7 +73,7 @@ const fmtTime = (iso: string): string => {
 const dateKey = (d: Date): string =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
-const BookingModal = ({ onClose }: { onClose: () => void }) => {
+const BookingModal = ({ onClose, mode = "consultation" }: { onClose: () => void; mode?: "consultation" | "treatment" }) => {
   const [step, setStep] = React.useState(1);
   const [data, setData] = React.useState<BookingFormData>({
     reason: null,
@@ -96,6 +102,7 @@ const BookingModal = ({ onClose }: { onClose: () => void }) => {
 
   React.useEffect(() => {
     if (!IS_LIVE) return;
+    if (mode === "treatment") return;
     if (step !== 2 || !data.reason) return;
 
     const reason = BOOKING_REASONS.find(r => r.id === data.reason);
@@ -214,7 +221,7 @@ const BookingModal = ({ onClose }: { onClose: () => void }) => {
           <ol className="steps">
             <li className={`${step === 1 ? "active" : ""} ${step > 1 ? "done" : ""}`}>
               <span className="step-num">{step > 1 ? "✓" : "1"}</span>
-              Reason for visit
+              {mode === "treatment" ? "Assessment" : "Reason for visit"}
             </li>
             <li className={`${step === 2 ? "active" : ""} ${step > 2 ? "done" : ""}`}>
               <span className="step-num">{step > 2 ? "✓" : "2"}</span>
@@ -237,7 +244,7 @@ const BookingModal = ({ onClose }: { onClose: () => void }) => {
         <div className="modal-body">
           <button className="modal-close" onClick={onClose} aria-label="Close">&times;</button>
 
-          {step === 1 && (
+          {step === 1 && mode === "consultation" && (
             <div className="modal-step">
               <span className="step-eyebrow">Step 01 / 04</span>
               <h3>What brings you in?</h3>
@@ -253,6 +260,27 @@ const BookingModal = ({ onClose }: { onClose: () => void }) => {
                       <div className="opt-desc">{r.desc}</div>
                     </span>
                     <span className="opt-meta">{r.price}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {step === 1 && mode === "treatment" && (
+            <div className="modal-step">
+              <span className="step-eyebrow">Step 01 / 04</span>
+              <h3>Have you had an initial assessment?</h3>
+              <p className="sub">All treatment sessions require a prior consultation with one of our clinicians.</p>
+              <div className="option-list">
+                {ASSESSMENT_OPTIONS.map(a => (
+                  <button key={a.id}
+                          className={`option ${data.reason === a.id ? "selected" : ""}`}
+                          onClick={() => set("reason", a.id)}>
+                    <span className="opt-radio" />
+                    <span className="opt-body">
+                      <div className="opt-title">{a.title}</div>
+                      <div className="opt-desc">{a.desc}</div>
+                    </span>
                   </button>
                 ))}
               </div>
@@ -390,8 +418,12 @@ const BookingModal = ({ onClose }: { onClose: () => void }) => {
               </p>
               <div className="confirm-card">
                 <div className="row">
-                  <span className="label">Reason</span>
-                  <span className="val">{BOOKING_REASONS.find(r => r.id === data.reason)?.title}</span>
+                  <span className="label">{mode === "treatment" ? "Assessment" : "Reason"}</span>
+                  <span className="val">
+                    {mode === "treatment"
+                      ? ASSESSMENT_OPTIONS.find(a => a.id === data.reason)?.title
+                      : BOOKING_REASONS.find(r => r.id === data.reason)?.title}
+                  </span>
                 </div>
                 <div className="row">
                   <span className="label">When</span>

@@ -19,7 +19,7 @@ const TreatmentCard = ({ t, onBook }: { t: Treatment; onBook: () => void }) => (
   </article>
 );
 
-const TreatmentsBlock = ({ onBook, setPage }: { onBook: () => void; setPage: (p: string) => void }) => {
+const TreatmentsBlock = ({ onBook, onBookTreatment, setPage }: { onBook: () => void; onBookTreatment: () => void; setPage: (p: string) => void }) => {
   const { categories, treatments } = window.RIO3_DATA;
   const [cat, setCat] = React.useState("all");
 
@@ -55,7 +55,7 @@ const TreatmentsBlock = ({ onBook, setPage }: { onBook: () => void; setPage: (p:
         </div>
 
         <div className="treat-grid">
-          {list.map(t => <TreatmentCard key={t.id} t={t} onBook={onBook} />)}
+          {list.map(t => <TreatmentCard key={t.id} t={t} onBook={onBookTreatment} />)}
         </div>
 
         <div style={{ display: "flex", justifyContent: "center", marginTop: 56 }}>
@@ -228,13 +228,13 @@ const TestimonialsBlock: React.FC = () => {
   );
 };
 
-const Home = ({ onBook, setPage, heroVariant }: { onBook: () => void; setPage: (p: string) => void; heroVariant: string }) => (
+const Home = ({ onBook, onBookTreatment, setPage, heroVariant }: { onBook: () => void; onBookTreatment: () => void; setPage: (p: string) => void; heroVariant: string }) => (
   <>
     {heroVariant === "b" && <HeroB onBook={onBook} setPage={setPage} />}
     {heroVariant === "c" && <HeroC onBook={onBook} setPage={setPage} />}
     {(heroVariant !== "b" && heroVariant !== "c") && <HeroA onBook={onBook} setPage={setPage} />}
     <Marquee />
-    <TreatmentsBlock onBook={onBook} setPage={setPage} />
+    <TreatmentsBlock onBook={onBook} onBookTreatment={onBookTreatment} setPage={setPage} />
     <MembershipsBlock onBook={onBook} />
     <DirectorBlock />
     <TestimonialsBlock />

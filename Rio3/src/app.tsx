@@ -55,6 +55,7 @@ const Rio3Tweaks = ({ tweaks, setTweak }: { tweaks: any; setTweak: (k: string, v
 const App = () => {
   const [page, setPage] = React.useState("home");
   const [booking, setBooking] = React.useState(false);
+  const [bookingMode, setBookingMode] = React.useState<"consultation" | "treatment">("consultation");
 
   const [tweaks, setTweak] = useTweaks(/*EDITMODE-BEGIN*/{
     "hero": "a",
@@ -88,7 +89,8 @@ const App = () => {
     root.style.setProperty("--pad", tweaks.density === "compact" ? "60px" : "88px");
   }, [tweaks]);
 
-  const onBook = () => setBooking(true);
+  const onBook = () => { setBookingMode("consultation"); setBooking(true); };
+  const onBookTreatment = () => { setBookingMode("treatment"); setBooking(true); };
 
   React.useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }); }, [page]);
 
@@ -97,15 +99,16 @@ const App = () => {
       <TopBar />
       <Nav page={page as PageId} setPage={setPage as any} onBook={onBook} />
 
-      {page === "home" && <Home onBook={onBook} setPage={setPage} heroVariant={tweaks.hero} />}
-      {page === "treatments" && <TreatmentsPage onBook={onBook} />}
+      {page === "home" && <Home onBook={onBook} onBookTreatment={onBookTreatment} setPage={setPage} heroVariant={tweaks.hero} />}
+      {page === "treatments" && <TreatmentsPage onBook={onBookTreatment} />}
+      {page === "programs" && <ProgramsPage onBook={onBook} />}
       {page === "memberships" && <MembershipsPage onBook={onBook} />}
       {page === "about" && <AboutPage onBook={onBook} />}
       {page === "contact" && <ContactPage onBook={onBook} />}
 
       <Footer setPage={setPage} onBook={onBook} />
 
-      {booking && <BookingModal onClose={() => setBooking(false)} />}
+      {booking && <BookingModal onClose={() => setBooking(false)} mode={bookingMode} />}
 
       <Rio3Tweaks tweaks={tweaks} setTweak={setTweak} />
     </div>

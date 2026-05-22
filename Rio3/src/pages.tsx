@@ -1,3 +1,83 @@
+const PROGRAMS = [
+  {
+    num: "01",
+    name: "Metabolic Reset",
+    tag: "Weight Optimization · 6–12 months",
+    desc: "Physician-supervised GLP-1 and comprehensive metabolic protocol. We manage your dosing, monitor your progress, and layer in IV nutrients and gut support as your protocol evolves.",
+    includes: ["GLP-1 titration & monitoring", "Monthly IV nutrition", "Gut microbiome support", "Quarterly lab review"],
+  },
+  {
+    num: "02",
+    name: "Immune Rebuild",
+    tag: "Immune & Gut Restoration · 12 weeks",
+    desc: "A structured sequence of ozone, high-dose IV Vitamin C and diagnostic work designed to reduce systemic inflammation and restore gut-immune balance from the ground up.",
+    includes: ["Intestinal ozone series", "High-dose IV Vitamin C", "Microbiome assessment", "Bi-weekly clinician check-in"],
+  },
+  {
+    num: "03",
+    name: "Joint Regeneration",
+    tag: "Regenerative Recovery · 3–6 months",
+    desc: "PRP and prolozone delivered on a structured timeline, paired with laser and IV anti-inflammatory support to accelerate tissue repair and reduce chronic joint inflammation.",
+    includes: ["PRP + prolozone series", "Low-level laser therapy", "IV anti-inflammatory support", "Progress review at 6 weeks"],
+  },
+];
+
+const ProgramsPage = ({ onBook }: { onBook: () => void }) => (
+  <>
+    <section className="page-hero">
+      <div className="shell">
+        <div className="page-hero-grid">
+          <div>
+            <span className="eyebrow">Programs</span>
+            <h1 style={{ marginTop: 28 }}>
+              Structured care, <em style={{ letterSpacing: "0.03em" }}>start to finish.</em>
+            </h1>
+            <p className="lede" style={{ marginTop: 24 }}>
+              Three physician-guided program tracks — each a complete course of care with a clear
+              protocol, timeline, and measurable outcome. Not single sessions; a committed plan.
+            </p>
+          </div>
+          <div className="page-meta">
+            <div className="row"><span className="label">Tracks</span><span>3 program categories</span></div>
+            <div className="row"><span className="label">Duration</span><span>12 weeks – 12 months</span></div>
+            <div className="row"><span className="label">Oversight</span><span>Physician-guided throughout</span></div>
+            <div className="row"><span className="label">Pricing</span><span>Contact us for current rates</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style={{ padding: "30px 0 100px" }}>
+      <div className="shell">
+        <div className="detail-rows">
+          {PROGRAMS.map((p) => (
+            <div key={p.num} className="detail-row">
+              <div className="idx">{p.num} / 03</div>
+              <div>
+                <h4>{p.name}</h4>
+                <div style={{ marginTop: 8, fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-deep)" }}>
+                  {p.tag}
+                </div>
+              </div>
+              <div className="copy">
+                <p style={{ marginBottom: 14 }}>{p.desc}</p>
+                <div style={{ fontSize: 12, color: "var(--ink-mute)", display: "flex", gap: 14, flexWrap: "wrap" }}>
+                  {p.includes.map(inc => <span key={inc}>&middot; {inc}</span>)}
+                </div>
+              </div>
+              <div className="price">
+                <button className="btn btn-ghost" onClick={onBook} style={{ marginTop: 12, padding: "10px 18px", fontSize: 13 }}>
+                  Book program <Arrow size={12} />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </>
+);
+
 const TreatmentsPage = ({ onBook }: { onBook: () => void }) => {
   const { categories, treatments } = window.RIO3_DATA;
   const [cat, setCat] = React.useState("all");
@@ -285,4 +365,4 @@ const ContactPage = ({ onBook }: { onBook: () => void }) => {
   );
 };
 
-Object.assign(window, { TreatmentsPage, MembershipsPage, AboutPage, ContactPage });
+Object.assign(window, { ProgramsPage, TreatmentsPage, MembershipsPage, AboutPage, ContactPage });
