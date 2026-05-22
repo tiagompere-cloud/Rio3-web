@@ -9,7 +9,7 @@ const TreatmentCard = ({ t, onBook }: { t: Treatment; onBook: () => void }) => (
       <p className="tc-desc">{t.summary}</p>
       <div className="tc-foot">
         <span style={{ color: "var(--ink-mute)", fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.1em" }}>
-          {t.duration} &middot; from ${t.price}
+          {t.duration}
         </span>
         <a onClick={onBook} style={{ cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6, fontWeight: 500 }}>
           Book <Arrow size={12} />
@@ -24,8 +24,9 @@ const TreatmentsBlock = ({ onBook, onBookTreatment, setPage }: { onBook: () => v
   const [cat, setCat] = React.useState("all");
 
   const tabs = [{ id: "all", label: "All" }, ...categories];
+  const { featuredIds } = window.RIO3_DATA;
   const list = cat === "all"
-    ? categories.flatMap(c => treatments.filter(t => t.cat === c.id).slice(0, 2)).slice(0, 6)
+    ? featuredIds.map(id => treatments.find(t => t.id === id)!).filter(Boolean)
     : treatments.filter(t => t.cat === cat).slice(0, 6);
 
   return (
@@ -68,46 +69,40 @@ const TreatmentsBlock = ({ onBook, onBookTreatment, setPage }: { onBook: () => v
   );
 };
 
-const MembershipsBlock = ({ onBook }: { onBook: () => void }) => {
-  const { tiers } = window.RIO3_DATA;
-  const [annual, setAnnual] = React.useState(false);
-
+const ProgramsBlock = ({ onBook, setPage }: { onBook: () => void; setPage: (p: string) => void }) => {
+  const { programs } = window.RIO3_DATA;
   return (
     <section className="section memberships">
       <div className="shell">
         <div className="section-head">
-          <span className="eyebrow">Memberships</span>
+          <span className="eyebrow">Programs</span>
           <div>
-            <h2>Ongoing care, <em>built-in.</em></h2>
+            <h2>Structured care, <em>start to finish.</em></h2>
             <p className="lede" style={{ marginTop: 22 }}>
-              For patients ready to make wellness a steady practice. Every plan includes
-              member pricing on the full menu, priority access, and a dedicated clinician.
+              Three physician-guided program tracks — not single sessions, but complete
+              courses of care with a protocol, timeline, and measurable outcome.
             </p>
           </div>
         </div>
 
-        <div className="bill-toggle">
-          <button className={!annual ? "active" : ""} onClick={() => setAnnual(false)}>Monthly</button>
-          <button className={annual ? "active" : ""} onClick={() => setAnnual(true)}>
-            Annual <span className="save">SAVE 14%</span>
-          </button>
-        </div>
-
         <div className="tier-grid">
-          {tiers.map(t => (
-            <div key={t.name} className={`tier ${t.featured ? "featured" : ""}`}>
-              {t.featured && <span className="badge">Most popular</span>}
-              <div className="tier-name">{t.name}</div>
-              <div className="tier-tag">{t.tag}</div>
-              <div className="tier-price">
-                <span className="price-num">${annual ? t.annual : t.monthly}</span>
-                <span className="price-cents">/ month{annual && ", billed annually"}</span>
-              </div>
-              <ul className="tier-feat">
-                {t.features.map(f => <li key={f}>{f}</li>)}
+          {programs.map(p => (
+            <div key={p.id} className="tier">
+              <div className="tier-name">{p.name}</div>
+              <div className="tier-tag">{p.tagline} · {p.duration}</div>
+              <p style={{ fontSize: 14, lineHeight: 1.65, color: "rgba(246,244,239,0.75)", flexGrow: 1, margin: "18px 0 24px" }}>
+                {p.description}
+              </p>
+              <ul className="tier-feat" style={{ marginBottom: 28 }}>
+                {p.tiers.map(t => (
+                  <li key={t.id} style={{ fontSize: 13 }}>
+                    {t.label ? `${t.label} — ${t.name}` : t.name}
+                    {t.featured && <span style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.12em", marginLeft: 8, opacity: 0.6 }}>RECOMMENDED</span>}
+                  </li>
+                ))}
               </ul>
-              <button className="btn btn-primary" onClick={onBook} style={{ marginTop: "auto", justifyContent: "center" }}>
-                Start {t.name} <Arrow />
+              <button className="btn btn-primary" onClick={() => setPage("programs")} style={{ justifyContent: "center" }}>
+                View program <Arrow />
               </button>
             </div>
           ))}
@@ -235,7 +230,7 @@ const Home = ({ onBook, onBookTreatment, setPage, heroVariant }: { onBook: () =>
     {(heroVariant !== "b" && heroVariant !== "c") && <HeroA onBook={onBook} setPage={setPage} />}
     <Marquee />
     <TreatmentsBlock onBook={onBook} onBookTreatment={onBookTreatment} setPage={setPage} />
-    <MembershipsBlock onBook={onBook} />
+    <ProgramsBlock onBook={onBook} setPage={setPage} />
     <DirectorBlock />
     <TestimonialsBlock />
     <LocationBlock onBook={onBook} />

@@ -100,7 +100,7 @@ const TreatmentsPage = ({ onBook }: { onBook: () => void }) => {
             <div className="page-meta">
               <div className="row"><span className="label">Updated</span><span>May 2026</span></div>
               <div className="row"><span className="label">Treatments</span><span>{treatments.length} active protocols</span></div>
-              <div className="row"><span className="label">Pricing</span><span>Member rates available on all therapies</span></div>
+              <div className="row"><span className="label">Pricing</span><span>Contact us for current rates</span></div>
               <div className="row"><span className="label">Insurance</span><span>Out-of-network &middot; superbills available</span></div>
             </div>
           </div>
@@ -137,9 +137,7 @@ const TreatmentsPage = ({ onBook }: { onBook: () => void }) => {
                   </div>
                 </div>
                 <div className="price">
-                  <span className="num">${t.price}</span>
-                  <span>session price</span>
-                  <button className="btn btn-ghost" onClick={onBook} style={{ marginTop: 12, padding: "10px 18px", fontSize: 13 }}>
+                  <button className="btn btn-ghost" onClick={onBook} style={{ padding: "10px 18px", fontSize: 13 }}>
                     Book <Arrow size={12} />
                   </button>
                 </div>
@@ -153,63 +151,75 @@ const TreatmentsPage = ({ onBook }: { onBook: () => void }) => {
 };
 
 const MembershipsPage = ({ onBook }: { onBook: () => void }) => {
-  const { tiers } = window.RIO3_DATA;
-  const [annual, setAnnual] = React.useState(false);
-
+  const { programs } = window.RIO3_DATA;
   return (
     <>
       <section className="page-hero">
         <div className="shell">
           <div className="page-hero-grid">
             <div>
-              <span className="eyebrow">Memberships</span>
-              <h1 style={{ marginTop: 28 }}>Wellness as a <em>steady</em> practice.</h1>
+              <span className="eyebrow">Programs</span>
+              <h1 style={{ marginTop: 28 }}>Structured care, <em>start to finish.</em></h1>
               <p className="lede" style={{ marginTop: 24 }}>
-                Our members commit to ongoing care — and we commit to making it
-                effortless. Choose the cadence that fits, and we&apos;ll handle the rest.
+                Three physician-guided program tracks — each a complete course of care with
+                a clear protocol, timeline, and measurable outcome. Not single sessions;
+                a committed plan.
               </p>
             </div>
             <div className="page-meta">
-              <div className="row"><span className="label">Members</span><span>620+ active</span></div>
-              <div className="row"><span className="label">Avg. visits/mo</span><span>4.2 per member</span></div>
-              <div className="row"><span className="label">Commitment</span><span>Monthly &middot; cancel anytime</span></div>
-              <div className="row"><span className="label">Add-ons</span><span>Family plans available</span></div>
+              <div className="row"><span className="label">Tracks</span><span>3 program categories</span></div>
+              <div className="row"><span className="label">Duration</span><span>12 weeks – 12 months</span></div>
+              <div className="row"><span className="label">Oversight</span><span>Physician-guided throughout</span></div>
+              <div className="row"><span className="label">Pricing</span><span>Contact us for current rates</span></div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section memberships" style={{ paddingTop: 60 }}>
+      <section className="section memberships" style={{ paddingTop: 60, paddingBottom: 80 }}>
         <div className="shell">
-          <div className="bill-toggle">
-            <button className={!annual ? "active" : ""} onClick={() => setAnnual(false)}>Monthly</button>
-            <button className={annual ? "active" : ""} onClick={() => setAnnual(true)}>
-              Annual <span className="save">SAVE 14%</span>
-            </button>
-          </div>
-
-          <div className="tier-grid">
-            {tiers.map(t => (
-              <div key={t.name} className={`tier ${t.featured ? "featured" : ""}`}>
-                {t.featured && <span className="badge">Most popular</span>}
-                <div className="tier-name">{t.name}</div>
-                <div className="tier-tag">{t.tag}</div>
-                <div className="tier-price">
-                  <span className="price-num">${annual ? t.annual : t.monthly}</span>
-                  <span className="price-cents">/ month{annual && ", billed annually"}</span>
+          {programs.map((prog, pi) => (
+            <div key={prog.id} className="prog-track">
+              <div className="prog-track-header">
+                <div>
+                  <span className="eyebrow" style={{ color: "rgba(246,244,239,0.5)" }}>
+                    {String(pi + 1).padStart(2, "0")} / {String(programs.length).padStart(2, "0")}
+                  </span>
+                  <div className="prog-track-name">{prog.name}</div>
+                  <div className="prog-track-meta">{prog.tagline} · {prog.duration}</div>
                 </div>
-                <ul className="tier-feat">
-                  {t.features.map(f => <li key={f}>{f}</li>)}
-                </ul>
-                <button className="btn btn-primary" onClick={onBook} style={{ marginTop: "auto", justifyContent: "center" }}>
-                  Start {t.name} <Arrow />
-                </button>
+                <p className="prog-track-desc">{prog.description}</p>
               </div>
-            ))}
-          </div>
 
-          <div style={{ marginTop: 80, textAlign: "center", color: "rgba(246,244,239,0.6)", fontSize: 13 }}>
-            Not sure which fits? <a onClick={onBook} style={{ cursor: "pointer", borderBottom: "1px solid rgba(246,244,239,0.3)", color: "var(--bg)" }}>Book a 20-minute clinician call</a> and we&apos;ll help you pick.
+              <div className="tier-grid">
+                {prog.tiers.map(t => (
+                  <div key={t.id} className={`tier ${t.featured ? "featured" : ""}`}>
+                    {t.featured && <span className="badge">Recommended</span>}
+                    {t.label && (
+                      <div style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.18em", color: "rgba(246,244,239,0.4)", marginBottom: 10 }}>
+                        {t.label}
+                      </div>
+                    )}
+                    <div className="tier-name" style={{ fontSize: 26 }}>{t.name}</div>
+                    <div className="tier-tag">{t.tag}</div>
+                    <ul className="tier-feat">
+                      {t.features.map(f => <li key={f}>{f}</li>)}
+                    </ul>
+                    <button className="btn btn-primary" onClick={onBook} style={{ marginTop: "auto", justifyContent: "center" }}>
+                      Book a consultation <Arrow />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+
+          <div style={{ textAlign: "center", color: "rgba(246,244,239,0.6)", fontSize: 13 }}>
+            Not sure which track fits?{" "}
+            <a onClick={onBook} style={{ cursor: "pointer", borderBottom: "1px solid rgba(246,244,239,0.3)", color: "var(--bg)" }}>
+              Book a 20-minute clinician call
+            </a>{" "}
+            and we&apos;ll help you decide.
           </div>
         </div>
       </section>

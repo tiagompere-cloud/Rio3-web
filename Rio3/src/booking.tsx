@@ -11,8 +11,15 @@ const API = (path: string) => `${BOOKING_CONFIG.apiBase || ""}${path}`;
 const BOOKING_REASONS: readonly BookingReason[] = [
   {
     id: "consult",
-    title: "Initial consultation",
-    desc: "60 min · with clinician · required for first-time patients",
+    title: "Initial consultation — In person",
+    desc: "90 min · in-clinic · required for all new patients",
+    price: "$90",
+    squareServiceVariationId: "",
+  },
+  {
+    id: "consult-online",
+    title: "Initial consultation — Online",
+    desc: "90 min · secure video · for patients outside South Florida",
     price: "$90",
     squareServiceVariationId: "",
   },
@@ -35,13 +42,6 @@ const BOOKING_REASONS: readonly BookingReason[] = [
     title: "Regenerative & Joint",
     desc: "Plasma Prolozone, PRP, prolozone, laser",
     price: "from $140",
-    squareServiceVariationId: "",
-  },
-  {
-    id: "membership",
-    title: "Membership inquiry",
-    desc: "Help me pick a plan",
-    price: "Free",
     squareServiceVariationId: "",
   },
 ];
@@ -503,4 +503,94 @@ const BookingModal = ({ onClose, mode = "consultation" }: { onClose: () => void;
   );
 };
 
-Object.assign(window, { BookingModal });
+const ConsultModal = ({ onClose }: { onClose: () => void }) => {
+  const [done, setDone] = React.useState(false);
+  const [data, setData] = React.useState({ first: "", last: "", email: "", phone: "", program: "", preferred: "" });
+  const set = (k: string, v: string) => setData(d => ({ ...d, [k]: v }));
+  const canSubmit = !!(data.first && data.last && data.email && data.phone);
+
+  React.useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
+  }, [onClose]);
+
+  return (
+    <div className="modal-back" onClick={onClose}>
+      <div className="modal consult-modal" onClick={(e) => e.stopPropagation()} style={{ position: "relative" }}>
+        <div className="modal-body" style={{ padding: "44px 48px" }}>
+          <button className="modal-close" onClick={onClose} aria-label="Close">&times;</button>
+
+          {!done ? (
+            <div className="modal-step">
+              <span className="step-eyebrow">Programs</span>
+              <h3>Schedule a consultation.</h3>
+              <p className="sub">
+                Leave your details and a clinician will reach out within one business hour
+                to walk you through your options and answer any questions.
+              </p>
+              <div className="form-grid">
+                <div className="field">
+                  <label>First name</label>
+                  <input value={data.first} onChange={e => set("first", e.target.value)} placeholder="Marisa" />
+                </div>
+                <div className="field">
+                  <label>Last name</label>
+                  <input value={data.last} onChange={e => set("last", e.target.value)} placeholder="Kovacs" />
+                </div>
+                <div className="field">
+                  <label>Email</label>
+                  <input type="email" value={data.email} onChange={e => set("email", e.target.value)} placeholder="you@example.com" />
+                </div>
+                <div className="field">
+                  <label>Phone</label>
+                  <input type="tel" value={data.phone} onChange={e => set("phone", e.target.value)} placeholder="(561) 555-0148" />
+                </div>
+                <div className="field full">
+                  <label>Which program interests you?</label>
+                  <select value={data.program} onChange={e => set("program", e.target.value)}>
+                    <option value="">Not sure yet</option>
+                    <option value="weight">Metabolic Reset — Weight Optimization</option>
+                    <option value="reset">Total Reset — 12-Week Detox</option>
+                    <option value="longevity">Performance &amp; Longevity</option>
+                  </select>
+                </div>
+                <div className="field full">
+                  <label>Best time to reach you</label>
+                  <select value={data.preferred} onChange={e => set("preferred", e.target.value)}>
+                    <option value="">No preference</option>
+                    <option value="morning">Morning — 9 am to 12 pm</option>
+                    <option value="afternoon">Afternoon — 12 to 5 pm</option>
+                    <option value="evening">Evening — 5 to 7 pm</option>
+                  </select>
+                </div>
+              </div>
+              <div className="modal-foot" style={{ marginTop: 32 }}>
+                <span style={{ fontSize: 12, color: "var(--ink-mute)" }}>{window.RIO3_DATA.brand.phone}</span>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => canSubmit && setDone(true)}
+                  style={{ opacity: canSubmit ? 1 : 0.4, pointerEvents: canSubmit ? "auto" : "none" }}
+                >
+                  Request consultation <Arrow />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="success">
+              <div className="check">&check;</div>
+              <h3>We&apos;ll be in touch.</h3>
+              <p className="sub">
+                Expect a call or text to <strong>{data.phone}</strong> within one business hour.
+              </p>
+              <button className="btn btn-primary" onClick={onClose}>Done <Arrow /></button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+Object.assign(window, { BookingModal, ConsultModal });
