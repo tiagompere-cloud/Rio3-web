@@ -77,7 +77,7 @@ const ProgramsBlock = ({ onBook, setPage }: { onBook: () => void; setPage: (p: s
         <div className="section-head">
           <span className="eyebrow">Programs</span>
           <div>
-            <h2>Structured care, <em>start to <span style={{ letterSpacing: "0.1em" }}>f</span>inish.</em></h2>
+            <h2>Structured care, <em>start to <span style={{ letterSpacing: "0.05em" }}>f</span>inish.</em></h2>
             <p className="lede" style={{ marginTop: 22 }}>
               Three physician-guided program tracks — not single sessions, but complete
               courses of care with a protocol, timeline, and measurable outcome.
