@@ -30,7 +30,7 @@ const ProgramsPage = ({ onBook }: { onBook: () => void }) => (
           <div>
             <span className="eyebrow">Programs</span>
             <h1 style={{ marginTop: 28 }}>
-              Structured care, <em style={{ letterSpacing: "0.03em" }}>start to finish.</em>
+              Structured care, <em>start to <span style={{ letterSpacing: "0.1em" }}>f</span>inish.</em>
             </h1>
             <p className="lede" style={{ marginTop: 24 }}>
               Three physician-guided program tracks — each a complete course of care with a clear
