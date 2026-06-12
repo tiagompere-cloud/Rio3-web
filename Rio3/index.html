@@ -1,52 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rio3 — Integrative Health, Deerfield Beach</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Outfit:wght@300;400;500;600&family=Quicksand:wght@500;600;700&family=Spectral:ital,wght@0,300;0,400;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-          <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rio3 · Back Soon</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:#0b3d35;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    padding:24px}
+  .box{text-align:center;max-width:400px}
+  .eye{color:#9fc4b6;font-weight:700;text-transform:uppercase;
+    letter-spacing:.25em;font-size:1.1rem;margin-bottom:20px}
+  h1{color:#ffffff;font-size:1.75rem;font-weight:400;margin-bottom:12px}
+  p{color:#9fc4b6;font-size:1rem;line-height:1.6}
+</style>
 </head>
 <body>
-  <div id="root"></div>
-
-  <!-- Image slot web component -->
-  <script type="text/babel" data-presets="env,typescript" src="image-slot.ts"></script>
-
-  <!-- React + Babel -->
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-
-  <!-- Tweaks shell -->
-  <script type="text/babel" data-presets="env,react,typescript" src="tweaks-panel.tsx"></script>
-
-  <!-- Square Appointments config. Set mode:"live" once your serverless API is deployed. -->
-  <script>
-    window.RIO3_BOOKING_CONFIG = {
-      // "demo" = static slots (no backend needed). "live" = calls /api/availability + /api/bookings.
-      mode: "demo",
-      // Base URL for the serverless API. Leave "" if hosted on the same origin (Vercel default).
-      apiBase: "",
-    };
-  </script>
-
-  <!-- Data -->
-  <script type="text/babel" data-presets="env,react,typescript" src="src/data.ts"></script>
-
-  <!-- Components -->
-  <script type="text/babel" data-presets="env,react,typescript" src="src/components.tsx"></script>
-  <script type="text/babel" data-presets="env,react,typescript" src="src/nav.tsx"></script>
-  <script type="text/babel" data-presets="env,react,typescript" src="src/heroes.tsx"></script>
-  <script type="text/babel" data-presets="env,react,typescript" src="src/home.tsx"></script>
-  <script type="text/babel" data-presets="env,react,typescript" src="src/pages.tsx"></script>
-  <script type="text/babel" data-presets="env,react,typescript" src="src/booking.tsx"></script>
-
-  <!-- App entry -->
-  <script type="text/babel" data-presets="env,react,typescript" src="src/app.tsx"></script>
+  <div class="box">
+    <div class="eye">Rio3</div>
+    <h1>Back shortly.</h1>
+    <p>We're making some improvements.<br>Check back soon.</p>
+  </div>
 </body>
 </html>
