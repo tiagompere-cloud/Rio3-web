@@ -243,7 +243,6 @@ const AboutPage = ({ onBook }: { onBook: () => void }) => (
           </div>
           <div className="page-meta">
             <div className="row"><span className="label">Founded</span><span>2019 &middot; Deerfield Beach, FL</span></div>
-            <div className="row"><span className="label">Clinicians</span><span>4 board-certified</span></div>
             <div className="row"><span className="label">Treatments</span><span>{window.RIO3_DATA.treatments.length} active protocols</span></div>
             <div className="row"><span className="label">Languages</span><span>English &middot; Portugu&ecirc;s &middot; Espa&ntilde;ol</span></div>
           </div>

@@ -28,7 +28,6 @@ const HeroA: React.FC<HeroProps> = ({ onBook, setPage }) => (
           <dl className="hero-meta">
             <div><dt>Founded</dt><dd>2019, Deerfield Beach</dd></div>
             <div><dt>Treatments delivered</dt><dd>30,000+</dd></div>
-            <div><dt>Clinicians</dt><dd>4 board-certified</dd></div>
           </dl>
         </div>
         <div className="hero-figure">
