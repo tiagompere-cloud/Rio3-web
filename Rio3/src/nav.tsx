@@ -23,7 +23,6 @@ const Nav: React.FC<NavProps> = ({ page, setPage, onBook }) => {
     { id: "home", label: "Home" },
     { id: "treatments", label: "Treatments" },
     { id: "programs", label: "Programs" },
-    { id: "about", label: "About" },
     { id: "contact", label: "Visit" },
   ];
   const close = () => setOpen(false);
@@ -126,7 +125,6 @@ const Footer: React.FC<FooterProps> = ({ setPage, onBook }) => {
           <div>
             <h5>Clinic</h5>
             <ul>
-              <li><a onClick={() => setPage("about")} style={{ cursor: "pointer" }}>About</a></li>
               <li><a>Our clinicians</a></li>
               <li><a>Research & education</a></li>
               <li><a onClick={() => setPage("contact")} style={{ cursor: "pointer" }}>Visit us</a></li>

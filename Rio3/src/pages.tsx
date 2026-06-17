@@ -227,86 +227,6 @@ const MembershipsPage = ({ onBook }: { onBook: () => void }) => {
   );
 };
 
-const AboutPage = ({ onBook }: { onBook: () => void }) => (
-  <>
-    <section className="page-hero">
-      <div className="shell">
-        <div className="page-hero-grid">
-          <div>
-            <span className="eyebrow">Our practice</span>
-            <h1 style={{ marginTop: 28 }}>A clinic built for <em>integrative</em> medicine.</h1>
-            <p className="lede" style={{ marginTop: 24 }}>
-              Rio3 opened in 2019 with a single conviction: that ozone, IV nutrition and
-              regenerative therapies belong in the same room as careful diagnostics and
-              clinician-led protocols — not on the fringes.
-            </p>
-          </div>
-          <div className="page-meta">
-            <div className="row"><span className="label">Founded</span><span>2019 &middot; Deerfield Beach, FL</span></div>
-            <div className="row"><span className="label">Treatments</span><span>{window.RIO3_DATA.treatments.length} active protocols</span></div>
-            <div className="row"><span className="label">Languages</span><span>English &middot; Portugu&ecirc;s &middot; Espa&ntilde;ol</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section style={{ padding: "40px 0 80px" }}>
-      <div className="shell">
-        <div className="about-stats">
-          <div className="stat">
-            <div className="num">30k+</div>
-            <div className="label">Treatments delivered</div>
-          </div>
-          <div className="stat">
-            <div className="num">620</div>
-            <div className="label">Active members</div>
-          </div>
-          <div className="stat">
-            <div className="num">4.9</div>
-            <div className="label">Patient rating &middot; Google</div>
-          </div>
-          <div className="stat">
-            <div className="num">7</div>
-            <div className="label">Years in practice</div>
-          </div>
-        </div>
-
-        <div className="about-grid" style={{ marginTop: 40 }}>
-          <div>
-            <span className="eyebrow">How we work</span>
-            <h2 style={{ fontSize: 44, marginTop: 24, fontWeight: 300, lineHeight: 1.05 }}>
-              Lab work first.<br />
-              <em style={{ fontStyle: "italic", color: "var(--sage-deep)" }}>Then protocols.</em>
-            </h2>
-          </div>
-          <div>
-            <p>
-              Every patient starts with an intake and a comprehensive blood panel. We don&apos;t
-              prescribe IV nutrients without knowing your micronutrient status; we don&apos;t
-              schedule ozone without screening your iron and your G6PD.
-            </p>
-            <p>
-              Once labs are in, your clinician designs a sequenced protocol — what to do
-              first, what to layer in, and what to measure to know it&apos;s working. We re-test
-              at quarterly milestones and adjust from there.
-            </p>
-            <p>
-              The result is calmer, more deliberate care. You spend less on therapies you
-              don&apos;t need, and more time on the ones that move the needle for you.
-            </p>
-            <button className="btn btn-primary" onClick={onBook} style={{ marginTop: 24 }}>
-              Start with a consultation <Arrow />
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <DirectorBlock />
-    <TestimonialsBlock />
-  </>
-);
-
 const ContactPage = ({ onBook }: { onBook: () => void }) => {
   const { brand, hours } = window.RIO3_DATA;
   return (
@@ -374,4 +294,4 @@ const ContactPage = ({ onBook }: { onBook: () => void }) => {
   );
 };
 
-Object.assign(window, { ProgramsPage, TreatmentsPage, MembershipsPage, AboutPage, ContactPage });
+Object.assign(window, { ProgramsPage, TreatmentsPage, MembershipsPage, ContactPage });

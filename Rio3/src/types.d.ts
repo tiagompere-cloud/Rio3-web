@@ -137,7 +137,7 @@ interface TweakOption<T = string> {
 
 // ── React / Component prop shapes ──────────────────────────────────
 
-type PageId = "home" | "treatments" | "programs" | "memberships" | "about" | "contact";
+type PageId = "home" | "treatments" | "programs" | "memberships" | "contact";
 
 interface PageProps {
   onBook: () => void;
@@ -211,7 +211,6 @@ interface Window {
   ProgramsPage: React.FC<PageProps>;
   TreatmentsPage: React.FC<PageProps>;
   MembershipsPage: React.FC<PageProps>;
-  AboutPage: React.FC<PageProps>;
   ContactPage: React.FC<PageProps>;
 
   // Booking

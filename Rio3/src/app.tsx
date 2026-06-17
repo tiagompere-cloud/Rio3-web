@@ -103,7 +103,6 @@ const App = () => {
       {page === "treatments" && <TreatmentsPage onBook={onBookTreatment} />}
       {page === "programs" && <ProgramsPage onBook={onBook} />}
       {page === "memberships" && <MembershipsPage onBook={onBook} />}
-      {page === "about" && <AboutPage onBook={onBook} />}
       {page === "contact" && <ContactPage onBook={onBook} />}
 
       <Footer setPage={setPage} onBook={onBook} />
