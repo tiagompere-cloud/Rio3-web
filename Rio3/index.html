@@ -25,16 +25,6 @@
   <!-- Tweaks shell -->
   <script type="text/babel" data-presets="env,react,typescript" src="tweaks-panel.tsx"></script>
 
-  <!-- Square Appointments config. Set mode:"live" once your serverless API is deployed. -->
-  <script>
-    window.RIO3_BOOKING_CONFIG = {
-      // "demo" = static slots (no backend needed). "live" = calls /api/availability + /api/bookings.
-      mode: "demo",
-      // Base URL for the serverless API. Leave "" if hosted on the same origin (Vercel default).
-      apiBase: "",
-    };
-  </script>
-
   <!-- Data -->
   <script type="text/babel" data-presets="env,react,typescript" src="src/data.ts"></script>
 
@@ -44,8 +34,6 @@
   <script type="text/babel" data-presets="env,react,typescript" src="src/heroes.tsx"></script>
   <script type="text/babel" data-presets="env,react,typescript" src="src/home.tsx"></script>
   <script type="text/babel" data-presets="env,react,typescript" src="src/pages.tsx"></script>
-  <script type="text/babel" data-presets="env,react,typescript" src="src/booking.tsx"></script>
-
   <!-- App entry -->
   <script type="text/babel" data-presets="env,react,typescript" src="src/app.tsx"></script>
 </body>

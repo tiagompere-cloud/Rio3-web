@@ -1,4 +1,4 @@
-const TreatmentCard = ({ t, onBook }: { t: Treatment; onBook: () => void }) => (
+const TreatmentCard = ({ t }: { t: Treatment }) => (
   <article className="treat-card">
     <div className="tc-img">
       <image-slot id={`treat-${t.id}`} shape="rect" radius="0" placeholder={t.photoTag} />
@@ -11,15 +11,12 @@ const TreatmentCard = ({ t, onBook }: { t: Treatment; onBook: () => void }) => (
         <span style={{ color: "var(--ink-mute)", fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.1em" }}>
           {t.duration}
         </span>
-        <a onClick={onBook} style={{ cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6, fontWeight: 500 }}>
-          Book <Arrow size={12} />
-        </a>
       </div>
     </div>
   </article>
 );
 
-const TreatmentsBlock = ({ onBook, onBookTreatment, setPage }: { onBook: () => void; onBookTreatment: () => void; setPage: (p: string) => void }) => {
+const TreatmentsBlock = ({ setPage }: { setPage: (p: string) => void }) => {
   const { categories, treatments } = window.RIO3_DATA;
   const [cat, setCat] = React.useState("all");
 
@@ -38,8 +35,7 @@ const TreatmentsBlock = ({ onBook, onBookTreatment, setPage }: { onBook: () => v
             <h2>A complete <em>integrative</em> toolkit, under one roof.</h2>
             <p className="lede" style={{ marginTop: 22 }}>
               Five categories of evidence-informed therapies — sequenced and combined into
-              protocols by your clinician. Browse what we offer, then book a consultation to
-              build your plan.
+              protocols by your clinician.
             </p>
           </div>
         </div>
@@ -56,7 +52,7 @@ const TreatmentsBlock = ({ onBook, onBookTreatment, setPage }: { onBook: () => v
         </div>
 
         <div className="treat-grid">
-          {list.map(t => <TreatmentCard key={t.id} t={t} onBook={onBookTreatment} />)}
+          {list.map(t => <TreatmentCard key={t.id} t={t} />)}
         </div>
 
         <div style={{ display: "flex", justifyContent: "center", marginTop: 56 }}>
@@ -69,7 +65,7 @@ const TreatmentsBlock = ({ onBook, onBookTreatment, setPage }: { onBook: () => v
   );
 };
 
-const ProgramsBlock = ({ onBook, setPage }: { onBook: () => void; setPage: (p: string) => void }) => {
+const ProgramsBlock = ({ setPage }: { setPage: (p: string) => void }) => {
   const { programs } = window.RIO3_DATA;
   return (
     <section className="section memberships">
@@ -112,7 +108,7 @@ const ProgramsBlock = ({ onBook, setPage }: { onBook: () => void; setPage: (p: s
   );
 };
 
-const LocationBlock = ({ onBook }: { onBook: () => void }) => {
+const LocationBlock: React.FC = () => {
   const { brand, hours } = window.RIO3_DATA;
   return (
     <section className="section" id="visit">
@@ -152,10 +148,6 @@ const LocationBlock = ({ onBook }: { onBook: () => void }) => {
                 </li>
               ))}
             </ul>
-
-            <button className="btn btn-primary" onClick={onBook}>
-              Book a visit <Arrow />
-            </button>
           </div>
         </div>
       </div>
@@ -223,17 +215,17 @@ const TestimonialsBlock: React.FC = () => {
   );
 };
 
-const Home = ({ onBook, onBookTreatment, setPage, heroVariant }: { onBook: () => void; onBookTreatment: () => void; setPage: (p: string) => void; heroVariant: string }) => (
+const Home = ({ setPage, heroVariant }: { setPage: (p: string) => void; heroVariant: string }) => (
   <>
-    {heroVariant === "b" && <HeroB onBook={onBook} setPage={setPage} />}
-    {heroVariant === "c" && <HeroC onBook={onBook} setPage={setPage} />}
-    {(heroVariant !== "b" && heroVariant !== "c") && <HeroA onBook={onBook} setPage={setPage} />}
+    {heroVariant === "b" && <HeroB setPage={setPage} />}
+    {heroVariant === "c" && <HeroC setPage={setPage} />}
+    {(heroVariant !== "b" && heroVariant !== "c") && <HeroA setPage={setPage} />}
     <Marquee />
-    <TreatmentsBlock onBook={onBook} onBookTreatment={onBookTreatment} setPage={setPage} />
-    <ProgramsBlock onBook={onBook} setPage={setPage} />
+    <TreatmentsBlock setPage={setPage} />
+    <ProgramsBlock setPage={setPage} />
     <DirectorBlock />
     <TestimonialsBlock />
-    <LocationBlock onBook={onBook} />
+    <LocationBlock />
   </>
 );
 

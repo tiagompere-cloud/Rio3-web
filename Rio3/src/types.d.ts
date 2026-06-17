@@ -77,50 +77,6 @@ interface Rio3Data {
   featuredIds: string[];
 }
 
-// ── Booking ────────────────────────────────────────────────────────
-
-interface BookingConfig {
-  mode: "demo" | "live";
-  apiBase: string;
-}
-
-interface SquareSlot {
-  startAt: string;
-  teamMemberId: string;
-  serviceVariationId: string;
-  serviceVariationVersion?: number;
-  durationMinutes?: number;
-}
-
-interface BookingReason {
-  id: string;
-  title: string;
-  desc: string;
-  price: string;
-  squareServiceVariationId: string;
-}
-
-interface BookingPatient {
-  first: string;
-  last: string;
-  email: string;
-  phone: string;
-  newPatient: boolean;
-}
-
-interface BookingFormData {
-  reason: string | null;
-  date: Date | null;
-  time: string | null;
-  slot: SquareSlot | null;
-  first: string;
-  last: string;
-  email: string;
-  phone: string;
-  note: string;
-  newPatient: boolean;
-}
-
 // ── Tweaks ─────────────────────────────────────────────────────────
 
 type TweakValue = string | number | boolean | string[];
@@ -140,13 +96,10 @@ interface TweakOption<T = string> {
 type PageId = "home" | "treatments" | "programs" | "memberships" | "contact";
 
 interface PageProps {
-  onBook: () => void;
   setPage?: (p: PageId) => void;
 }
 
 interface HomeProps {
-  onBook: () => void;
-  onBookTreatment: () => void;
   setPage: (p: PageId) => void;
   heroVariant: "a" | "b" | "c";
 }
@@ -154,27 +107,18 @@ interface HomeProps {
 interface NavProps {
   page: PageId;
   setPage: (p: PageId) => void;
-  onBook: () => void;
 }
 
 interface FooterProps {
   setPage: (p: PageId) => void;
-  onBook: () => void;
 }
 
 interface HeroProps {
-  onBook: () => void;
   setPage: (p: PageId) => void;
 }
 
 interface TreatmentCardProps {
   t: Treatment;
-  onBook: () => void;
-}
-
-interface BookingModalProps {
-  onClose: () => void;
-  mode?: "consultation" | "treatment";
 }
 
 // ── Window globals (cross-file glue) ───────────────────────────────
@@ -182,7 +126,6 @@ interface BookingModalProps {
 interface Window {
   // Data + config
   RIO3_DATA: Rio3Data;
-  RIO3_BOOKING_CONFIG: BookingConfig;
 
   // Components
   Arrow: React.FC<{ rotate?: number; size?: number }>;
@@ -212,10 +155,6 @@ interface Window {
   TreatmentsPage: React.FC<PageProps>;
   MembershipsPage: React.FC<PageProps>;
   ContactPage: React.FC<PageProps>;
-
-  // Booking
-  BookingModal: React.FC<BookingModalProps>;
-  ConsultModal: React.FC<BookingModalProps>;
 
   // Tweaks panel API
   useTweaks: <T extends TweakDefaults>(defaults: T) => [T, SetTweak];

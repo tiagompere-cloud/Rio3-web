@@ -17,7 +17,7 @@ const TopBar: FC = () => {
   );
 };
 
-const Nav: React.FC<NavProps> = ({ page, setPage, onBook }) => {
+const Nav: React.FC<NavProps> = ({ page, setPage }) => {
   const [open, setOpen] = React.useState(false);
   const links: { id: PageId; label: string }[] = [
     { id: "home", label: "Home" },
@@ -56,9 +56,6 @@ const Nav: React.FC<NavProps> = ({ page, setPage, onBook }) => {
           >
             Browse treatments
           </a>
-          <button className="btn btn-primary" onClick={() => { onBook(); close(); }}>
-            Book a visit <Arrow />
-          </button>
         </div>
         <button className="nav-hamburger" onClick={() => setOpen(!open)} aria-label="Menu">
           {open ? "✕" : "☰"}
@@ -101,7 +98,7 @@ interface FooterProps extends PageProps {
   setPage: (p: PageId) => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ setPage, onBook }) => {
+const Footer: React.FC<FooterProps> = ({ setPage }) => {
   const { brand } = window.RIO3_DATA;
   return (
     <footer className="footer">
@@ -119,7 +116,6 @@ const Footer: React.FC<FooterProps> = ({ setPage, onBook }) => {
               <li><a onClick={() => setPage("treatments")} style={{ cursor: "pointer" }}>All treatments</a></li>
               <li><a onClick={() => setPage("programs")} style={{ cursor: "pointer" }}>Programs</a></li>
               <li><a onClick={() => setPage("treatments")} style={{ cursor: "pointer" }}>Conditions we treat</a></li>
-              <li><a onClick={onBook} style={{ cursor: "pointer" }}>Book a consultation</a></li>
             </ul>
           </div>
           <div>

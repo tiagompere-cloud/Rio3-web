@@ -22,7 +22,7 @@ const PROGRAMS = [
   },
 ];
 
-const ProgramsPage = ({ onBook }: { onBook: () => void }) => (
+const ProgramsPage = () => (
   <>
     <section className="page-hero">
       <div className="shell">
@@ -65,11 +65,6 @@ const ProgramsPage = ({ onBook }: { onBook: () => void }) => (
                   {p.includes.map(inc => <span key={inc}>&middot; {inc}</span>)}
                 </div>
               </div>
-              <div className="price">
-                <button className="btn btn-ghost" onClick={onBook} style={{ marginTop: 12, padding: "10px 18px", fontSize: 13 }}>
-                  Book program <Arrow size={12} />
-                </button>
-              </div>
             </div>
           ))}
         </div>
@@ -78,7 +73,7 @@ const ProgramsPage = ({ onBook }: { onBook: () => void }) => (
   </>
 );
 
-const TreatmentsPage = ({ onBook }: { onBook: () => void }) => {
+const TreatmentsPage = () => {
   const { categories, treatments } = window.RIO3_DATA;
   const [cat, setCat] = React.useState("all");
   const tabs = [{ id: "all", label: "All treatments" }, ...categories];
@@ -93,8 +88,8 @@ const TreatmentsPage = ({ onBook }: { onBook: () => void }) => {
               <span className="eyebrow">Our menu of care</span>
               <h1 style={{ marginTop: 28 }}>Every <em>therapy</em>, every protocol.</h1>
               <p className="lede" style={{ marginTop: 24 }}>
-                Browse the full menu of treatments offered at Rio3. Filter by category, then
-                book a consultation to build a personalized protocol with your clinician.
+                Browse the full menu of treatments offered at Rio3. Filter by category to find
+                what fits your protocol.
               </p>
             </div>
             <div className="page-meta">
@@ -136,11 +131,6 @@ const TreatmentsPage = ({ onBook }: { onBook: () => void }) => {
                     {t.includes.map(inc => <span key={inc}>&middot; {inc}</span>)}
                   </div>
                 </div>
-                <div className="price">
-                  <button className="btn btn-ghost" onClick={onBook} style={{ padding: "10px 18px", fontSize: 13 }}>
-                    Book <Arrow size={12} />
-                  </button>
-                </div>
               </div>
             ))}
           </div>
@@ -150,7 +140,7 @@ const TreatmentsPage = ({ onBook }: { onBook: () => void }) => {
   );
 };
 
-const MembershipsPage = ({ onBook }: { onBook: () => void }) => {
+const MembershipsPage = () => {
   const { programs } = window.RIO3_DATA;
   return (
     <>
@@ -205,29 +195,19 @@ const MembershipsPage = ({ onBook }: { onBook: () => void }) => {
                     <ul className="tier-feat">
                       {t.features.map(f => <li key={f}>{f}</li>)}
                     </ul>
-                    <button className="btn btn-primary" onClick={onBook} style={{ marginTop: "auto", justifyContent: "center" }}>
-                      Book a consultation <Arrow />
-                    </button>
                   </div>
                 ))}
               </div>
             </div>
           ))}
 
-          <div style={{ textAlign: "center", color: "rgba(246,244,239,0.6)", fontSize: 13 }}>
-            Not sure which track fits?{" "}
-            <a onClick={onBook} style={{ cursor: "pointer", borderBottom: "1px solid rgba(246,244,239,0.3)", color: "var(--bg)" }}>
-              Book a 20-minute clinician call
-            </a>{" "}
-            and we&apos;ll help you decide.
-          </div>
         </div>
       </section>
     </>
   );
 };
 
-const ContactPage = ({ onBook }: { onBook: () => void }) => {
+const ContactPage = () => {
   const { brand, hours } = window.RIO3_DATA;
   return (
     <>
@@ -242,7 +222,6 @@ const ContactPage = ({ onBook }: { onBook: () => void }) => {
                 Free parking in the building lot — Suite 205, second floor.
               </p>
               <div className="hero-cta" style={{ marginTop: 32 }}>
-                <button className="btn btn-primary" onClick={onBook}>Book a visit <Arrow /></button>
                 <a className="btn btn-ghost" href={`tel:${brand.phone}`}>Call {brand.phone}</a>
               </div>
             </div>

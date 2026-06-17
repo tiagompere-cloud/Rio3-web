@@ -5,7 +5,7 @@ interface HeroProps extends PageProps {
   setPage: (p: PageId) => void;
 }
 
-const HeroA: React.FC<HeroProps> = ({ onBook, setPage }) => (
+const HeroA: React.FC<HeroProps> = ({ setPage }) => (
   <section className="hero">
     <div className="shell">
       <div className="hero-grid">
@@ -20,7 +20,6 @@ const HeroA: React.FC<HeroProps> = ({ onBook, setPage }) => (
             around your labs, your history and your goals.
           </p>
           <div className="hero-cta">
-            <button className="btn btn-primary" onClick={onBook}>Book a consultation <Arrow /></button>
             <a className="btn btn-ghost" onClick={() => setPage("treatments")} style={{ cursor: "pointer" }}>
               Explore treatments
             </a>
@@ -39,7 +38,7 @@ const HeroA: React.FC<HeroProps> = ({ onBook, setPage }) => (
   </section>
 );
 
-const HeroB: React.FC<HeroProps> = ({ onBook, setPage }) => (
+const HeroB: React.FC<HeroProps> = ({ setPage }) => (
   <section className="hero-b">
     <div className="hero-frame">
       <image-slot id="hero-b-img" shape="rect" radius="0" placeholder="Drop full-bleed hero — clinic interior, warm light, IV setup" />
@@ -54,7 +53,6 @@ const HeroB: React.FC<HeroProps> = ({ onBook, setPage }) => (
           IV nutrition, regenerative medicine and longevity protocols.
         </p>
         <div className="hero-cta">
-          <button className="btn btn-primary" onClick={onBook}>Book a consultation <Arrow /></button>
           <a className="btn btn-ghost" onClick={() => setPage("treatments")} style={{ cursor: "pointer" }}>
             Explore treatments
           </a>
@@ -64,7 +62,7 @@ const HeroB: React.FC<HeroProps> = ({ onBook, setPage }) => (
   </section>
 );
 
-const HeroC: React.FC<HeroProps> = ({ onBook, setPage }) => (
+const HeroC: React.FC<HeroProps> = ({ setPage }) => (
   <section className="hero-c">
     <div className="shell">
       <div className="hero-c-grid">
@@ -80,7 +78,6 @@ const HeroC: React.FC<HeroProps> = ({ onBook, setPage }) => (
             foundation of every protocol we build.
           </p>
           <div className="hero-cta">
-            <button className="btn btn-primary" onClick={onBook}>Book a consultation <Arrow /></button>
             <a className="btn btn-ghost" onClick={() => setPage("treatments")} style={{ cursor: "pointer" }}>
               How ozone works
             </a>
