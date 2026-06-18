@@ -1,8 +1,5 @@
 const TreatmentCard = ({ t }: { t: Treatment }) => (
   <article className="treat-card">
-    <div className="tc-img">
-      <image-slot id={`treat-${t.id}`} shape="rect" radius="0" placeholder={t.photoTag} />
-    </div>
     <div className="tc-body">
       <span className="tc-cat">{window.RIO3_DATA.categories.find(c => c.id === t.cat)?.label}</span>
       <h3>{t.name}</h3>

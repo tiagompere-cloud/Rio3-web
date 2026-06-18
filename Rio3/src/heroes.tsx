@@ -29,10 +29,6 @@ const HeroA: React.FC<HeroProps> = ({ setPage }) => (
             <div><dt>Treatments delivered</dt><dd>30,000+</dd></div>
           </dl>
         </div>
-        <div className="hero-figure">
-          <image-slot id="hero-a-img" shape="rect" radius="14" placeholder="Drop hero image — patient receiving IV ozone, calm interior" />
-          <div className="figure-tag">Treatment in session · Suite 205</div>
-        </div>
       </div>
     </div>
   </section>
@@ -41,7 +37,6 @@ const HeroA: React.FC<HeroProps> = ({ setPage }) => (
 const HeroB: React.FC<HeroProps> = ({ setPage }) => (
   <section className="hero-b">
     <div className="hero-frame">
-      <image-slot id="hero-b-img" shape="rect" radius="0" placeholder="Drop full-bleed hero — clinic interior, warm light, IV setup" />
       <div className="frame-overlay" />
       <div className="ribbon"><span className="dot" />Welcoming new patients</div>
       <div className="hero-content">
