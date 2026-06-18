@@ -151,11 +151,12 @@ const TestimonialsBlock: React.FC = () => {
   // pos 1..total are real slides; 0 = clone of last, total+1 = clone of first
   const [pos, setPos] = React.useState(1);
   const [animated, setAnimated] = React.useState(true);
+  const [paused, setPaused] = React.useState(false);
 
   const slides = [testimonials[total - 1], ...testimonials, testimonials[0]];
   const dotIdx = ((pos - 1) % total + total) % total;
 
-  const go = (dir: number) => { setAnimated(true); setPos(p => p + dir); };
+  const go = (dir: number) => { setPaused(true); setAnimated(true); setPos(p => p + dir); };
 
   const onTransitionEnd = () => {
     if (pos <= 0) { setAnimated(false); setPos(total); }
@@ -167,11 +168,12 @@ const TestimonialsBlock: React.FC = () => {
     if (!animated) requestAnimationFrame(() => requestAnimationFrame(() => setAnimated(true)));
   }, [animated]);
 
-  // Auto-advance; resets whenever visible slide changes
+  // Auto-advance — stops permanently once user touches arrows
   React.useEffect(() => {
-    const t = setInterval(() => { setAnimated(true); setPos(p => p + 1); }, 5000);
+    if (paused) return;
+    const t = setInterval(() => { setAnimated(true); setPos(p => p + 1); }, 8000);
     return () => clearInterval(t);
-  }, [dotIdx]);
+  }, [dotIdx, paused]);
 
   return (
     <section className="section testimonials">
@@ -186,7 +188,7 @@ const TestimonialsBlock: React.FC = () => {
           <div className="testi-track-wrap">
             <div
               className="testi-track"
-              style={{ transform: `translateX(-${pos * 100}%)`, transition: animated ? 'transform 1.04s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none' }}
+              style={{ transform: `translateX(-${pos * 100}%)`, transition: animated ? 'transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none' }}
               onTransitionEnd={onTransitionEnd}
             >
               {slides.map((t, i) => (
