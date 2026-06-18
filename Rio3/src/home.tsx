@@ -156,6 +156,17 @@ const LocationBlock: React.FC = () => {
 
 const TestimonialsBlock: React.FC = () => {
   const { testimonials } = window.RIO3_DATA;
+  const total = testimonials.length;
+  const [idx, setIdx] = React.useState(0);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => setIdx(i => (i + 1) % total), 5000);
+    return () => clearInterval(timer);
+  }, [idx, total]);
+
+  const go = (dir: number) => setIdx(i => (i + dir + total) % total);
+  const t = testimonials[idx];
+
   return (
     <section className="section testimonials">
       <div className="shell">
@@ -165,17 +176,23 @@ const TestimonialsBlock: React.FC = () => {
             <h2>Results that <em>speak for themselves.</em></h2>
           </div>
         </div>
-        <div className="testi-grid">
-          {testimonials.map((t, i) => (
-            <div key={i} className="testi">
-              <div className="stars">{"★".repeat(t.stars)}</div>
-              <blockquote>"{t.quote}"</blockquote>
-              <div className="testi-foot">
-                <span className="name">{t.name}</span>
-                <span className="meta">{t.meta}</span>
-              </div>
+        <div className="testi-carousel">
+          <div className="testi">
+            <div className="stars">{"★".repeat(t.stars)}</div>
+            <blockquote>"{t.quote}"</blockquote>
+            <div className="testi-foot">
+              <span className="name">{t.name}</span>
             </div>
-          ))}
+          </div>
+          <div className="testi-controls">
+            <button className="testi-btn" onClick={() => go(-1)} aria-label="Previous review">&#8592;</button>
+            <div className="testi-dots">
+              {testimonials.map((_, i) => (
+                <button key={i} className={`testi-dot${i === idx ? " active" : ""}`} onClick={() => setIdx(i)} aria-label={`Review ${i + 1}`} />
+              ))}
+            </div>
+            <button className="testi-btn" onClick={() => go(1)} aria-label="Next review">&#8594;</button>
+          </div>
         </div>
       </div>
     </section>
