@@ -178,8 +178,7 @@ interface Window {
 // FC shorthand used in some pre-existing files
 type FC<P = {}> = React.FC<P>;
 
-// DirectorBlock and TestimonialsBlock are defined in home.tsx and used in pages.tsx
-declare const DirectorBlock: React.FC;
+// TestimonialsBlock is defined in home.tsx
 declare const TestimonialsBlock: React.FC;
 
 // <image-slot> custom element — used in JSX.
