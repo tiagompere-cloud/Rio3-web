@@ -8,7 +8,7 @@ const RIO3_DATA: Rio3Data = {
     address: "440 S Federal Hwy, Suite 205",
     city: "Deerfield Beach, FL 33441",
     phone: "(561) 699-3124",
-    email: "hello@rio3usa.com",
+    email: "ozone.rita@gmail.com",
   },
 
   hours: [
