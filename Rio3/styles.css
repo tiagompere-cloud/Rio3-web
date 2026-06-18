@@ -393,23 +393,12 @@ p { margin: 0; }
   border: 1px solid var(--line);
   position: relative;
 }
-.map-svg { width: 100%; height: 100%; }
-.map-pin {
-  position: absolute; top: 48%; left: 52%; transform: translate(-50%, -100%);
-  display: flex; flex-direction: column; align-items: center;
+.apple-maps-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 12px; font-size: 13px; color: var(--ink-soft);
+  border-bottom: 1px solid var(--rule);
 }
-.map-pin .pin-card {
-  background: var(--ink); color: var(--bg);
-  padding: 10px 14px; border-radius: 6px;
-  font-size: 12px; font-weight: 500; white-space: nowrap;
-  margin-bottom: 8px;
-  box-shadow: 0 10px 30px -10px rgba(14,42,58,0.4);
-}
-.map-pin .pin-dot {
-  width: 14px; height: 14px; border-radius: 50%;
-  background: var(--tan); border: 3px solid var(--ink);
-  box-shadow: 0 6px 20px -4px rgba(14,42,58,0.4);
-}
+.apple-maps-link:hover { color: var(--ink); }
 .hours { list-style: none; padding: 0; margin: 0 0 30px; }
 .hours li { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
 .hours li.closed { color: var(--ink-mute); }

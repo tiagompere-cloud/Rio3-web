@@ -239,12 +239,11 @@ const ContactPage = () => {
       <section style={{ padding: "20px 0 100px" }}>
         <div className="shell">
           <div className="location-grid">
-            <div className="map-frame">
-              <MapPlaceholder />
-              <div className="map-pin">
-                <div className="pin-card">Rio3 &middot; Suite 205</div>
-                <div className="pin-dot" />
+            <div>
+              <div className="map-frame">
+                <MapPlaceholder />
               </div>
+              <AppleMapsLink />
             </div>
             <div>
               <span className="eyebrow" style={{ marginBottom: 14, display: "inline-flex" }}>Operating hours</span>

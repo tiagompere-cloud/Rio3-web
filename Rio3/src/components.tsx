@@ -75,34 +75,28 @@ const OzoneMolecule: React.FC<OzoneMoleculeProps> = ({ animate = true }) => (
   </svg>
 );
 
-// Map placeholder — schematic Deerfield Beach intersection
 const MapPlaceholder: FC = () => (
-  <svg viewBox="0 0 600 450" className="map-svg" preserveAspectRatio="xMidYMid slice">
-    <rect width="600" height="450" fill="#ece8da" />
-    {/* water */}
-    <path d="M 450 0 L 600 0 L 600 450 L 480 450 Z" fill="#c8d5d0" opacity="0.55" />
-    <text x="540" y="80" fill="#4f7361" fontFamily="var(--display)" fontStyle="italic" fontSize="14" textAnchor="middle" opacity="0.7">Atlantic</text>
-    {/* park */}
-    <rect x="60" y="50" width="120" height="90" fill="#cfd9c4" opacity="0.7" rx="2" />
-    <text x="120" y="100" fill="#4f7361" fontFamily="var(--mono)" fontSize="9" textAnchor="middle">QUIET WATERS PARK</text>
-    {/* main roads */}
-    <line x1="0" y1="225" x2="600" y2="225" stroke="#fff" strokeWidth="14" />
-    <line x1="0" y1="225" x2="600" y2="225" stroke="#d4b896" strokeWidth="2" strokeDasharray="8 8" />
-    <line x1="300" y1="0" x2="300" y2="450" stroke="#fff" strokeWidth="12" />
-    {/* secondary roads */}
-    <line x1="0" y1="120" x2="600" y2="120" stroke="#fff" strokeWidth="6" />
-    <line x1="0" y1="340" x2="600" y2="340" stroke="#fff" strokeWidth="6" />
-    <line x1="150" y1="0" x2="150" y2="450" stroke="#fff" strokeWidth="6" />
-    <line x1="430" y1="0" x2="430" y2="450" stroke="#fff" strokeWidth="6" />
-    {/* labels */}
-    <text x="20" y="218" fill="#4a5d6b" fontFamily="var(--mono)" fontSize="9">S FEDERAL HWY</text>
-    <text x="310" y="14" fill="#4a5d6b" fontFamily="var(--mono)" fontSize="9">SE 1ST AVE</text>
-    {/* building blocks */}
-    <rect x="200" y="240" width="70" height="80" fill="#dcd5c2" rx="2" />
-    <rect x="330" y="240" width="80" height="60" fill="#dcd5c2" rx="2" />
-    <rect x="200" y="140" width="60" height="70" fill="#dcd5c2" rx="2" />
-    <rect x="335" y="140" width="80" height="70" fill="#dcd5c2" rx="2" />
-  </svg>
+  <iframe
+    src="https://www.google.com/maps?q=440+S+Federal+Hwy,+Deerfield+Beach,+FL+33441&output=embed"
+    style={{ width: "100%", height: "100%", border: 0, display: "block" }}
+    loading="lazy"
+    referrerPolicy="no-referrer-when-downgrade"
+    title="Rio3 location"
+  />
+);
+
+const AppleMapsLink: FC = () => (
+  <a
+    href="https://maps.apple.com/?address=440+S+Federal+Hwy,+Suite+205,+Deerfield+Beach,+FL+33441"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="apple-maps-link"
+  >
+    <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true">
+      <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.54 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.029 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701z" />
+    </svg>
+    Get directions
+  </a>
 );
 
 // Striped placeholder block (used inside image slots as visual indicator)
@@ -118,4 +112,4 @@ const StripePh: React.FC<StripePhProps> = ({ label, height = "100%", style = {} 
   </div>
 );
 
-Object.assign(window, { Arrow, LogoSlot, Brand, OzoneMolecule, MapPlaceholder, StripePh });
+Object.assign(window, { Arrow, LogoSlot, Brand, OzoneMolecule, MapPlaceholder, AppleMapsLink, StripePh });

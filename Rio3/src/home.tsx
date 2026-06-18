@@ -120,12 +120,11 @@ const LocationBlock: React.FC = () => {
           </div>
         </div>
         <div className="location-grid">
-          <div className="map-frame">
-            <MapPlaceholder />
-            <div className="map-pin">
-              <div className="pin-card">Rio3 &middot; Suite 205</div>
-              <div className="pin-dot" />
+          <div>
+            <div className="map-frame">
+              <MapPlaceholder />
             </div>
+            <AppleMapsLink />
           </div>
           <div>
             <div style={{ marginBottom: 32 }}>

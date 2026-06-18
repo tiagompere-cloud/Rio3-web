@@ -133,6 +133,7 @@ interface Window {
   Brand: React.FC<{ size?: number; dark?: boolean }>;
   OzoneMolecule: React.FC<{ animate?: boolean }>;
   MapPlaceholder: React.FC;
+  AppleMapsLink: React.FC;
   StripePh: React.FC<{ label: string; height?: string | number; style?: React.CSSProperties }>;
 
   // Nav
