@@ -96,7 +96,6 @@ const TreatmentsPage = () => {
               <div className="row"><span className="label">Updated</span><span>May 2026</span></div>
               <div className="row"><span className="label">Treatments</span><span>{treatments.length} active protocols</span></div>
               <div className="row"><span className="label">Pricing</span><span>Contact us for current rates</span></div>
-              <div className="row"><span className="label">Insurance</span><span>Out-of-network &middot; superbills available</span></div>
             </div>
           </div>
         </div>
