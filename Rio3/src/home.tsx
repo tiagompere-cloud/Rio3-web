@@ -186,7 +186,7 @@ const TestimonialsBlock: React.FC = () => {
           <div className="testi-track-wrap">
             <div
               className="testi-track"
-              style={{ transform: `translateX(-${pos * 100}%)`, transition: animated ? 'transform 0.52s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none' }}
+              style={{ transform: `translateX(-${pos * 100}%)`, transition: animated ? 'transform 1.04s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none' }}
               onTransitionEnd={onTransitionEnd}
             >
               {slides.map((t, i) => (
