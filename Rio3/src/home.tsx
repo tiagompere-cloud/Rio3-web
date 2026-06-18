@@ -148,15 +148,30 @@ const LocationBlock: React.FC = () => {
 const TestimonialsBlock: React.FC = () => {
   const { testimonials } = window.RIO3_DATA;
   const total = testimonials.length;
-  const [idx, setIdx] = React.useState(0);
+  // pos 1..total are real slides; 0 = clone of last, total+1 = clone of first
+  const [pos, setPos] = React.useState(1);
+  const [animated, setAnimated] = React.useState(true);
 
+  const slides = [testimonials[total - 1], ...testimonials, testimonials[0]];
+  const dotIdx = ((pos - 1) % total + total) % total;
+
+  const go = (dir: number) => { setAnimated(true); setPos(p => p + dir); };
+
+  const onTransitionEnd = () => {
+    if (pos <= 0) { setAnimated(false); setPos(total); }
+    else if (pos >= total + 1) { setAnimated(false); setPos(1); }
+  };
+
+  // Re-enable animation after a snap (two frames so browser flushes the position change)
   React.useEffect(() => {
-    const timer = setInterval(() => setIdx(i => (i + 1) % total), 5000);
-    return () => clearInterval(timer);
-  }, [idx, total]);
+    if (!animated) requestAnimationFrame(() => requestAnimationFrame(() => setAnimated(true)));
+  }, [animated]);
 
-  const go = (dir: number) => setIdx(i => (i + dir + total) % total);
-  const t = testimonials[idx];
+  // Auto-advance; resets whenever visible slide changes
+  React.useEffect(() => {
+    const t = setInterval(() => { setAnimated(true); setPos(p => p + 1); }, 5000);
+    return () => clearInterval(t);
+  }, [dotIdx]);
 
   return (
     <section className="section testimonials">
@@ -168,18 +183,26 @@ const TestimonialsBlock: React.FC = () => {
           </div>
         </div>
         <div className="testi-carousel">
-          <div className="testi">
-            <div className="stars">{"★".repeat(t.stars)}</div>
-            <blockquote>"{t.quote}"</blockquote>
-            <div className="testi-foot">
-              <span className="name">{t.name}</span>
+          <div className="testi-track-wrap">
+            <div
+              className="testi-track"
+              style={{ transform: `translateX(-${pos * 100}%)`, transition: animated ? 'transform 0.52s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none' }}
+              onTransitionEnd={onTransitionEnd}
+            >
+              {slides.map((t, i) => (
+                <div key={i} className="testi">
+                  <div className="stars">{"★".repeat(t.stars)}</div>
+                  <blockquote>"{t.quote}"</blockquote>
+                  <div className="testi-foot"><span className="name">{t.name}</span></div>
+                </div>
+              ))}
             </div>
           </div>
           <div className="testi-controls">
             <button className="testi-btn" onClick={() => go(-1)} aria-label="Previous review">&#8592;</button>
             <div className="testi-dots">
               {testimonials.map((_, i) => (
-                <button key={i} className={`testi-dot${i === idx ? " active" : ""}`} onClick={() => setIdx(i)} aria-label={`Review ${i + 1}`} />
+                <button key={i} className={`testi-dot${i === dotIdx ? " active" : ""}`} onClick={() => { setAnimated(true); setPos(i + 1); }} aria-label={`Review ${i + 1}`} />
               ))}
             </div>
             <button className="testi-btn" onClick={() => go(1)} aria-label="Next review">&#8594;</button>

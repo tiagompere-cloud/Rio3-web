@@ -343,13 +343,17 @@ p { margin: 0; }
 /* ---------- Testimonials ---------- */
 .testimonials { background: var(--bg-elev); }
 .testi-carousel { max-width: 780px; margin: 0 auto; }
+.testi-track-wrap { overflow: hidden; border-radius: var(--radius-lg); }
+.testi-track { display: flex; will-change: transform; }
 .testi {
+  flex: 0 0 100%; min-width: 0;
   background: var(--paper);
   border-radius: var(--radius-lg);
   padding: 44px 48px;
   border: 1px solid var(--line);
   display: flex; flex-direction: column;
   min-height: 220px;
+  box-sizing: border-box;
 }
 @media (max-width: 600px) { .testi { padding: 32px 28px; } }
 .stars { color: var(--tan); letter-spacing: 2px; font-size: 14px; margin-bottom: 20px; }

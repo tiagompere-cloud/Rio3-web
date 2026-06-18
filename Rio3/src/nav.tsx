@@ -134,14 +134,6 @@ const Footer: React.FC<FooterProps> = ({ setPage }) => {
             </ul>
           </div>
         </div>
-        <div className="footer-base">
-          <div>© Rio3 USA — Integrative Health · Deerfield Beach</div>
-          <div className="legal">
-            <a>Privacy</a>
-            <a>Terms</a>
-            <a>Notice of Privacy Practices</a>
-          </div>
-        </div>
       </div>
     </footer>
   );
