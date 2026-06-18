@@ -34,18 +34,18 @@ const RIO3_DATA: Rio3Data = {
   treatments: [
     // ── Ozone Therapy ───────────────────────────────────────────────
     {
-      id: "intestinal", cat: "ozone", name: "Intestinal Ozone (Enema + Insufflation)",
-      summary: "Our most-requested protocol. Rectal ozone insufflation paired with an enema to support gut, liver and detoxification pathways. Offered as a single session or as a 4-session program (deworming, liver-intestine, or heavy-metal track).",
-      duration: "45 min", price: 125,
-      includes: ["Enema + ozone insufflation", "Single session or 4-session program", "Probiotic finish on full course"],
-      photoTag: "Intestinal ozone room",
-    },
-    {
       id: "hemo-maior", cat: "ozone", name: "Auto-Hemotherapy (Major)",
       summary: "Ozonated autologous blood reinfusion — the classic European protocol for immune modulation and systemic oxygenation. Sized to your weight; reinfused on the same visit.",
       duration: "60 min", price: 190,
       includes: ["Draw + ozonation", "Reinfusion", "Vitals monitoring"],
       photoTag: "Auto-hemo procedure",
+    },
+    {
+      id: "intestinal", cat: "ozone", name: "Intestinal Ozone (Enema + Insufflation)",
+      summary: "Our most-requested protocol. Rectal ozone insufflation paired with an enema to support gut, liver and detoxification pathways. Offered as a single session or as a 4-session program (deworming, liver-intestine, or heavy-metal track).",
+      duration: "45 min", price: 125,
+      includes: ["Enema + ozone insufflation", "Single session or 4-session program", "Probiotic finish on full course"],
+      photoTag: "Intestinal ozone room",
     },
     {
       id: "ozone-local", cat: "ozone", name: "Local Ozone (Skin & Topical)",
@@ -419,7 +419,7 @@ const RIO3_DATA: Rio3Data = {
   ],
 
   // For the homepage 6-card preview — top revenue drivers across categories.
-  featuredIds: ["consult-first", "consult-bloodwork", "intestinal", "hemo-maior", "plasma-prolozone-uni", "iv-vitc-high"],
+  featuredIds: ["consult-first", "consult-bloodwork", "hemo-maior", "intestinal", "plasma-prolozone-uni", "iv-vitc-high"],
 };
 
 window.RIO3_DATA = RIO3_DATA;
