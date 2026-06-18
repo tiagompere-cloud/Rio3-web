@@ -255,15 +255,7 @@ const ContactPage = () => {
                   </li>
                 ))}
               </ul>
-              <div style={{ marginTop: 30, padding: 24, background: "var(--bg-elev)", borderRadius: 12, border: "1px solid var(--line)" }}>
-                <div style={{ fontFamily: "var(--display)", fontSize: 20, fontWeight: 400, marginBottom: 8 }}>
-                  Telehealth available
-                </div>
-                <p style={{ fontSize: 14, color: "var(--ink-soft)" }}>
-                  Initial consultations and follow-ups can be conducted via secure video for
-                  patients outside South Florida. Lab work and treatments require in-person visits.
-                </p>
-              </div>
+
             </div>
           </div>
         </div>
