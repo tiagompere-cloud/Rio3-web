@@ -417,6 +417,12 @@ const RIO3_DATA: Rio3Data = {
       stars: 5,
     },
     {
+      quote: "Very good, highly recommend!",
+      name: "Rejane Sanches",
+      meta: "",
+      stars: 5,
+    },
+    {
       quote: "Strongly recommended.",
       name: "Saverina Martinez",
       meta: "",
@@ -437,12 +443,6 @@ const RIO3_DATA: Rio3Data = {
     {
       quote: "Very good, super recommended.",
       name: "Renato Guedes",
-      meta: "",
-      stars: 5,
-    },
-    {
-      quote: "Very good, super recommended.",
-      name: "Rejane Sanches",
       meta: "",
       stars: 5,
     },
