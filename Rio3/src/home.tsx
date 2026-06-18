@@ -1,18 +1,3 @@
-const TreatmentCard = ({ t }: { t: Treatment }) => (
-  <article className="treat-card">
-    <div className="tc-body">
-      <span className="tc-cat">{window.RIO3_DATA.categories.find(c => c.id === t.cat)?.label}</span>
-      <h3>{t.name}</h3>
-      <p className="tc-desc">{t.summary}</p>
-      <div className="tc-foot">
-        <span style={{ color: "var(--ink-mute)", fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.1em" }}>
-          {t.duration}
-        </span>
-      </div>
-    </div>
-  </article>
-);
-
 const TreatmentsBlock = ({ setPage }: { setPage: (p: string) => void }) => {
   const { categories, treatments } = window.RIO3_DATA;
   const [cat, setCat] = React.useState("all");
@@ -21,7 +6,7 @@ const TreatmentsBlock = ({ setPage }: { setPage: (p: string) => void }) => {
   const { featuredIds } = window.RIO3_DATA;
   const list = cat === "all"
     ? featuredIds.map(id => treatments.find(t => t.id === id)!).filter(Boolean)
-    : treatments.filter(t => t.cat === cat).slice(0, 6);
+    : treatments.filter(t => t.cat === cat).slice(0, 8);
 
   return (
     <section className="section">
@@ -48,11 +33,20 @@ const TreatmentsBlock = ({ setPage }: { setPage: (p: string) => void }) => {
           ))}
         </div>
 
-        <div className="treat-grid">
-          {list.map(t => <TreatmentCard key={t.id} t={t} />)}
+        <div className="treat-list">
+          {list.map((t, i) => (
+            <div key={t.id} className="treat-row">
+              <span className="treat-row-num">{String(i + 1).padStart(2, "0")}</span>
+              <div className="treat-row-main">
+                <span className="treat-row-cat">{categories.find(c => c.id === t.cat)?.label}</span>
+                <span className="treat-row-name">{t.name}</span>
+              </div>
+              <span className="treat-row-dur">{t.duration}</span>
+            </div>
+          ))}
         </div>
 
-        <div style={{ display: "flex", justifyContent: "center", marginTop: 56 }}>
+        <div style={{ display: "flex", justifyContent: "center", marginTop: 40 }}>
           <a className="btn btn-ghost" onClick={() => setPage("treatments")} style={{ cursor: "pointer" }}>
             See every treatment <Arrow />
           </a>
@@ -209,4 +203,4 @@ const Home = ({ setPage, heroVariant }: { setPage: (p: string) => void; heroVari
   </>
 );
 
-Object.assign(window, { Home, TreatmentCard, TestimonialsBlock });
+Object.assign(window, { Home, TestimonialsBlock });

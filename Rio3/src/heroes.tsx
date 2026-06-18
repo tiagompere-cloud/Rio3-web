@@ -8,28 +8,28 @@ interface HeroProps extends PageProps {
 const HeroA: React.FC<HeroProps> = ({ setPage }) => (
   <section className="hero">
     <div className="shell">
-      <div className="hero-grid">
-        <div>
-          <span className="eyebrow">Integrative Health ·</span>
-          <h1 style={{ marginTop: 28 }}>
-            Medicine that treats the <em>root</em>, not the symptom.
-          </h1>
-          <p className="lede" style={{ marginTop: 28 }}>
-            Rio3 is a clinician-led integrative practice in Deerfield Beach offering ozone
-            therapy, IV nutrition, regenerative injections and longevity protocols — built
-            around your labs, your history and your goals.
-          </p>
-          <div className="hero-cta">
-            <a className="btn btn-ghost" onClick={() => setPage("treatments")} style={{ cursor: "pointer" }}>
-              Explore treatments
-            </a>
-          </div>
-          <dl className="hero-meta">
-            <div><dt>Founded</dt><dd>2019, Deerfield Beach</dd></div>
-            <div><dt>Treatments delivered</dt><dd>30,000+</dd></div>
-          </dl>
+      <div className="hero-center">
+        <span className="eyebrow">Integrative Health ·</span>
+        <h1>
+          Medicine that treats the <em>root</em>, not the symptom.
+        </h1>
+        <p className="lede" style={{ marginTop: 24 }}>
+          Rio3 is a clinician-led integrative practice in Deerfield Beach offering ozone
+          therapy, IV nutrition, regenerative injections and longevity protocols — built
+          around your labs, your history and your goals.
+        </p>
+        <div className="hero-cta">
+          <a className="btn btn-ghost" onClick={() => setPage("treatments")} style={{ cursor: "pointer" }}>
+            Explore treatments
+          </a>
         </div>
       </div>
+      <dl className="hero-stats">
+        <div><dt>Founded</dt><dd>2019</dd></div>
+        <div><dt>Location</dt><dd>Deerfield Beach</dd></div>
+        <div><dt>Treatments delivered</dt><dd>30,000+</dd></div>
+        <div><dt>Languages</dt><dd>EN · PT · ES</dd></div>
+      </dl>
     </div>
   </section>
 );
