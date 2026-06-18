@@ -9,8 +9,6 @@ const TopBar: FC = () => {
         <div>Welcoming new patients · {brand.address}, {brand.city}</div>
         <div>
           <a href={`tel:${brand.phone}`}>{brand.phone}</a>
-          <span className="pipe">|</span>
-          <a href="#">Patient login</a>
         </div>
       </div>
     </div>
