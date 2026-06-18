@@ -257,22 +257,25 @@ p { margin: 0; }
 .tab:hover { color: var(--ink); }
 .tab.active { color: var(--ink); border-bottom-color: var(--ink); }
 
-.treat-list { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
-.treat-row {
-  display: flex; align-items: baseline; gap: 24px;
-  padding: 22px 0; border-bottom: 1px solid var(--line);
-  transition: background .15s;
+.treat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+@media (max-width: 980px) { .treat-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .treat-grid { grid-template-columns: 1fr; } }
+.treat-card {
+  background: var(--paper);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  display: flex; flex-direction: column;
+  transition: transform .25s ease, box-shadow .25s ease;
 }
-.treat-row-num { font-family: var(--mono); font-size: 10px; color: var(--ink-mute); flex-shrink: 0; width: 24px; }
-.treat-row-main { display: flex; gap: 16px; align-items: baseline; flex: 1; min-width: 0; }
-.treat-row-cat { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--sage-deep); flex-shrink: 0; }
-.treat-row-name { font-size: 17px; font-weight: 400; }
-.treat-row-dur { font-size: 13px; color: var(--ink-mute); flex-shrink: 0; margin-left: auto; }
-@media (max-width: 640px) {
-  .treat-row { flex-wrap: wrap; gap: 8px; }
-  .treat-row-main { flex-direction: column; gap: 2px; }
-  .treat-row-dur { width: 100%; margin-left: 0; padding-left: 40px; }
-}
+.treat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+.tc-body { padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+.tc-cat { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-deep); }
+.treat-card h3 { font-size: 26px; font-weight: 400; line-height: 1.15; }
+.tc-desc { font-size: 15px; color: var(--ink-soft); line-height: 1.55; flex: 1; }
+.tc-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 14px; border-top: 1px solid var(--line); margin-top: 6px; font-size: 13px; color: var(--ink-mute); }
+.tc-foot .arr { transition: transform .25s; }
+.treat-card:hover .tc-foot .arr { transform: translateX(4px); }
 
 /* ---------- Memberships ---------- */
 .memberships { background: var(--ink); color: var(--bg); }

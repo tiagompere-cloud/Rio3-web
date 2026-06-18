@@ -117,6 +117,10 @@ interface HeroProps {
   setPage: (p: PageId) => void;
 }
 
+interface TreatmentCardProps {
+  t: Treatment;
+}
+
 // ── Window globals (cross-file glue) ───────────────────────────────
 
 interface Window {
@@ -145,6 +149,7 @@ interface Window {
 
   // Home
   Home: React.FC<HomeProps>;
+  TreatmentCard: React.FC<TreatmentCardProps>;
 
   // Pages
   ProgramsPage: React.FC<PageProps>;
