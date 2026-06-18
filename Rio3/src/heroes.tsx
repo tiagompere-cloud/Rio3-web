@@ -10,7 +10,7 @@ const HeroA: React.FC<HeroProps> = ({ setPage }) => (
     <div className="shell">
       <div className="hero-grid">
         <div>
-          <span className="eyebrow">Integrative Health · Est. 2019</span>
+          <span className="eyebrow">Integrative Health ·</span>
           <h1 style={{ marginTop: 28 }}>
             Medicine that treats the <em>root</em>, not the symptom.
           </h1>
