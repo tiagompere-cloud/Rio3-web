@@ -9,7 +9,6 @@ const TreatmentCard = ({ t }: { t: Treatment }) => {
         <p className="tc-desc">{t.summary}</p>
         <div className="tc-foot">
           <span>{t.duration}</span>
-          <span className="arr"><Arrow /></span>
         </div>
       </div>
     </div>

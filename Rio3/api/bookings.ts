@@ -44,6 +44,15 @@ export default async function handler(
 
     const tags: string[] = [];
     if (patient.newPatient) tags.push("NEW PATIENT");
+    // Record TCPA texting consent with the booking so there is a durable
+    // record of the opt-in (state + timestamp + consent text version).
+    if (patient.textingConsent) {
+      tags.push(
+        `SMS CONSENT ${patient.consentTimestamp || ""} (v${patient.consentTextVersion || ""})`.trim()
+      );
+    } else {
+      tags.push("NO SMS CONSENT");
+    }
     if (note?.trim()) tags.push(note.trim());
     const customerNote = tags.join(" · ").slice(0, 4096);
 

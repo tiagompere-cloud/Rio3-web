@@ -90,14 +90,19 @@ const App = () => {
 
   return (
     <div data-screen-label={page}>
-      <TopBar />
-      <Nav page={page as PageId} setPage={setPage as any} />
+      <a className="skip-link" href="#main-content">Skip to main content</a>
+      <header>
+        <TopBar />
+        <Nav page={page as PageId} setPage={setPage as any} />
+      </header>
 
-      {page === "home" && <Home setPage={setPage} heroVariant={tweaks.hero} />}
-      {page === "treatments" && <TreatmentsPage />}
-      {page === "programs" && <ProgramsPage />}
-      {page === "memberships" && <MembershipsPage />}
-      {page === "contact" && <ContactPage />}
+      <main id="main-content">
+        {page === "home" && <Home setPage={setPage} heroVariant={tweaks.hero} />}
+        {page === "treatments" && <TreatmentsPage />}
+        {page === "programs" && <ProgramsPage />}
+        {page === "memberships" && <MembershipsPage />}
+        {page === "contact" && <ContactPage />}
+      </main>
 
       <Footer setPage={setPage} />
 
