@@ -1,0 +1,13 @@
+{
+  // Cloudflare Worker config for the Rio3 marketing site.
+  // This is an assets-only Worker (no server script): it serves the static
+  // files in ./Rio3 (index.html, the React/Babel app, styles, and the legal
+  // pages). The deploy/version commands are configured in the Cloudflare
+  // dashboard (Workers Builds) as `npx wrangler deploy` (production / main)
+  // and `npx wrangler versions upload` (preview, non-production branches).
+  "name": "rio3-web",
+  "compatibility_date": "2025-01-01",
+  "assets": {
+    "directory": "./Rio3"
+  }
+}
