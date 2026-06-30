@@ -109,7 +109,7 @@ const Footer: React.FC<FooterProps> = ({ setPage }) => {
             </p>
           </div>
           <div>
-            <h5>Care</h5>
+            <h2 className="footer-col-title">Care</h2>
             <ul>
               <li><a onClick={() => setPage("treatments")} style={{ cursor: "pointer" }}>All treatments</a></li>
               <li><a onClick={() => setPage("programs")} style={{ cursor: "pointer" }}>Programs</a></li>
@@ -117,7 +117,7 @@ const Footer: React.FC<FooterProps> = ({ setPage }) => {
             </ul>
           </div>
           <div>
-            <h5>Clinic</h5>
+            <h2 className="footer-col-title">Clinic</h2>
             <ul>
               <li><a>Our clinicians</a></li>
               <li><a>Research & education</a></li>
@@ -125,7 +125,7 @@ const Footer: React.FC<FooterProps> = ({ setPage }) => {
             </ul>
           </div>
           <div>
-            <h5>Contact</h5>
+            <h2 className="footer-col-title">Contact</h2>
             <ul>
               <li><a href={`tel:${brand.phone}`}>{brand.phone}</a></li>
               <li><a href={`mailto:${brand.email}`}>{brand.email}</a></li>
@@ -133,6 +133,15 @@ const Footer: React.FC<FooterProps> = ({ setPage }) => {
               <li>{brand.city}</li>
             </ul>
           </div>
+        </div>
+        <div className="footer-base">
+          <span>© {new Date().getFullYear()} Rio3 | Ozone Therapy. All rights reserved.</span>
+          <span className="legal">
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
+            <a href="/medical-disclaimer">Medical Disclaimer</a>
+            <a href="/accessibility">Accessibility</a>
+          </span>
         </div>
       </div>
     </footer>

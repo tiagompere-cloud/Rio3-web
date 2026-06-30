@@ -7,7 +7,7 @@ interface ArrowProps {
 }
 
 const Arrow: React.FC<ArrowProps> = ({ rotate = 0, size = 14 }) => (
-  <svg width={size} height={size} viewBox="0 0 16 16" fill="none" className="arr" style={{ transform: `rotate(${rotate}deg)` }}>
+  <svg width={size} height={size} viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" className="arr" style={{ transform: `rotate(${rotate}deg)` }}>
     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
@@ -44,7 +44,7 @@ interface OzoneMoleculeProps {
 }
 
 const OzoneMolecule: React.FC<OzoneMoleculeProps> = ({ animate = true }) => (
-  <svg viewBox="0 0 400 400" className="ozone-svg">
+  <svg viewBox="0 0 400 400" className="ozone-svg" role="img" aria-label="Ozone molecule (O₃) — three oxygen atoms">
     <defs>
       <radialGradient id="atomA" cx="35%" cy="35%">
         <stop offset="0%" stopColor="#fff" stopOpacity="0.95" />

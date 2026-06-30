@@ -8,6 +8,12 @@ const ASSESSMENT_OPTIONS = [
 const IS_LIVE = BOOKING_CONFIG.mode === "live";
 const API = (path: string) => `${BOOKING_CONFIG.apiBase || ""}${path}`;
 
+// TCPA texting consent — version the exact label text so each opt-in has a
+// record of what the patient agreed to.
+const SMS_CONSENT_VERSION = "2026-06-30";
+const SMS_CONSENT_TEXT =
+  "I agree to receive text messages from Rio3 | Ozone Therapy about my appointments and care at the number provided. Message and data rates may apply. Reply STOP to opt out.";
+
 const BOOKING_REASONS: readonly BookingReason[] = [
   {
     id: "consult",
@@ -82,6 +88,7 @@ const BookingModal = ({ onClose, mode = "consultation" }: { onClose: () => void;
     slot: null,
     first: "", last: "", email: "", phone: "", note: "",
     newPatient: true,
+    textingConsent: false,
   });
 
   const [loadingSlots, setLoadingSlots] = React.useState(false);
@@ -183,6 +190,11 @@ const BookingModal = ({ onClose, mode = "consultation" }: { onClose: () => void;
             email: data.email,
             phone: data.phone,
             newPatient: data.newPatient,
+            // TCPA texting consent — record state, time of opt-in, and the
+            // exact label version the patient saw.
+            textingConsent: data.textingConsent,
+            consentTimestamp: data.textingConsent ? new Date().toISOString() : null,
+            consentTextVersion: data.textingConsent ? SMS_CONSENT_VERSION : null,
           },
           note: data.note,
         }),
@@ -378,30 +390,32 @@ const BookingModal = ({ onClose, mode = "consultation" }: { onClose: () => void;
 
               <div className="form-grid">
                 <div className="field">
-                  <label>First name</label>
-                  <input value={data.first} onChange={e => set("first", e.target.value)} placeholder="Marisa" />
+                  <label htmlFor="bk-first">First name</label>
+                  <input id="bk-first" value={data.first} onChange={e => set("first", e.target.value)} placeholder="Marisa" />
                 </div>
                 <div className="field">
-                  <label>Last name</label>
-                  <input value={data.last} onChange={e => set("last", e.target.value)} placeholder="Kovacs" />
+                  <label htmlFor="bk-last">Last name</label>
+                  <input id="bk-last" value={data.last} onChange={e => set("last", e.target.value)} placeholder="Kovacs" />
                 </div>
                 <div className="field">
-                  <label>Email</label>
-                  <input type="email" value={data.email} onChange={e => set("email", e.target.value)} placeholder="you@example.com" />
+                  <label htmlFor="bk-email">Email</label>
+                  <input id="bk-email" type="email" value={data.email} onChange={e => set("email", e.target.value)} placeholder="you@example.com" />
                 </div>
                 <div className="field">
-                  <label>Phone</label>
-                  <input type="tel" value={data.phone} onChange={e => set("phone", e.target.value)} placeholder="(561) 555-0148" />
+                  <label htmlFor="bk-phone">Phone</label>
+                  <input id="bk-phone" type="tel" value={data.phone} onChange={e => set("phone", e.target.value)} placeholder="(561) 555-0148" />
                 </div>
                 <div className="field full">
-                  <label>Anything we should know? (optional)</label>
-                  <textarea value={data.note} onChange={e => set("note", e.target.value)} placeholder="Existing conditions, current meds, what you'd like to focus on…" />
+                  <label htmlFor="bk-note">Anything we should know? (optional)</label>
+                  <textarea id="bk-note" value={data.note} onChange={e => set("note", e.target.value)} placeholder="Existing conditions, current meds, what you'd like to focus on…" />
                 </div>
-                <div className="full" style={{ display: "flex", gap: 10, fontSize: 13, color: "var(--ink-soft)", alignItems: "center" }}>
-                  <input type="checkbox" id="newpat" checked={data.newPatient} onChange={e => set("newPatient", e.target.checked)} />
-                  <label htmlFor="newpat" style={{ textTransform: "none", letterSpacing: 0, color: "var(--ink-soft)", fontSize: 13 }}>
-                    This is my first visit to Rio3
-                  </label>
+                <div className="full consent-field">
+                  <input type="checkbox" id="bk-newpat" checked={data.newPatient} onChange={e => set("newPatient", e.target.checked)} />
+                  <label htmlFor="bk-newpat">This is my first visit to Rio3</label>
+                </div>
+                <div className="full consent-field">
+                  <input type="checkbox" id="bk-sms-consent" checked={data.textingConsent} onChange={e => set("textingConsent", e.target.checked)} />
+                  <label htmlFor="bk-sms-consent">{SMS_CONSENT_TEXT}</label>
                 </div>
               </div>
             </div>
@@ -505,9 +519,23 @@ const BookingModal = ({ onClose, mode = "consultation" }: { onClose: () => void;
 
 const ConsultModal = ({ onClose }: { onClose: () => void }) => {
   const [done, setDone] = React.useState(false);
-  const [data, setData] = React.useState({ first: "", last: "", email: "", phone: "", program: "", preferred: "" });
-  const set = (k: string, v: string) => setData(d => ({ ...d, [k]: v }));
+  const [data, setData] = React.useState({ first: "", last: "", email: "", phone: "", program: "", preferred: "", textingConsent: false });
+  const set = (k: string, v: string | boolean) => setData(d => ({ ...d, [k]: v }));
   const canSubmit = !!(data.first && data.last && data.email && data.phone);
+
+  const submitConsult = () => {
+    if (!canSubmit) return;
+    // Record the consent state with the submission: opt-in flag, timestamp,
+    // and the exact label version the patient saw (or null if not given).
+    const submission = {
+      ...data,
+      consentTimestamp: data.textingConsent ? new Date().toISOString() : null,
+      consentTextVersion: data.textingConsent ? SMS_CONSENT_VERSION : null,
+    };
+    // TODO: when a backend is wired for consultation requests, POST `submission`.
+    console.log("consultation request", submission);
+    setDone(true);
+  };
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -532,24 +560,24 @@ const ConsultModal = ({ onClose }: { onClose: () => void }) => {
               </p>
               <div className="form-grid">
                 <div className="field">
-                  <label>First name</label>
-                  <input value={data.first} onChange={e => set("first", e.target.value)} placeholder="Marisa" />
+                  <label htmlFor="cs-first">First name</label>
+                  <input id="cs-first" value={data.first} onChange={e => set("first", e.target.value)} placeholder="Marisa" />
                 </div>
                 <div className="field">
-                  <label>Last name</label>
-                  <input value={data.last} onChange={e => set("last", e.target.value)} placeholder="Kovacs" />
+                  <label htmlFor="cs-last">Last name</label>
+                  <input id="cs-last" value={data.last} onChange={e => set("last", e.target.value)} placeholder="Kovacs" />
                 </div>
                 <div className="field">
-                  <label>Email</label>
-                  <input type="email" value={data.email} onChange={e => set("email", e.target.value)} placeholder="you@example.com" />
+                  <label htmlFor="cs-email">Email</label>
+                  <input id="cs-email" type="email" value={data.email} onChange={e => set("email", e.target.value)} placeholder="you@example.com" />
                 </div>
                 <div className="field">
-                  <label>Phone</label>
-                  <input type="tel" value={data.phone} onChange={e => set("phone", e.target.value)} placeholder="(561) 555-0148" />
+                  <label htmlFor="cs-phone">Phone</label>
+                  <input id="cs-phone" type="tel" value={data.phone} onChange={e => set("phone", e.target.value)} placeholder="(561) 555-0148" />
                 </div>
                 <div className="field full">
-                  <label>Which program interests you?</label>
-                  <select value={data.program} onChange={e => set("program", e.target.value)}>
+                  <label htmlFor="cs-program">Which program interests you?</label>
+                  <select id="cs-program" value={data.program} onChange={e => set("program", e.target.value)}>
                     <option value="">Not sure yet</option>
                     <option value="weight">Metabolic Reset — Weight Optimization</option>
                     <option value="reset">Total Reset — 12-Week Detox</option>
@@ -557,20 +585,24 @@ const ConsultModal = ({ onClose }: { onClose: () => void }) => {
                   </select>
                 </div>
                 <div className="field full">
-                  <label>Best time to reach you</label>
-                  <select value={data.preferred} onChange={e => set("preferred", e.target.value)}>
+                  <label htmlFor="cs-preferred">Best time to reach you</label>
+                  <select id="cs-preferred" value={data.preferred} onChange={e => set("preferred", e.target.value)}>
                     <option value="">No preference</option>
                     <option value="morning">Morning — 9 am to 12 pm</option>
                     <option value="afternoon">Afternoon — 12 to 5 pm</option>
                     <option value="evening">Evening — 5 to 7 pm</option>
                   </select>
                 </div>
+                <div className="full consent-field">
+                  <input type="checkbox" id="cs-sms-consent" checked={data.textingConsent} onChange={e => set("textingConsent", e.target.checked)} />
+                  <label htmlFor="cs-sms-consent">{SMS_CONSENT_TEXT}</label>
+                </div>
               </div>
               <div className="modal-foot" style={{ marginTop: 32 }}>
                 <span style={{ fontSize: 12, color: "var(--ink-mute)" }}>{window.RIO3_DATA.brand.phone}</span>
                 <button
                   className="btn btn-primary"
-                  onClick={() => canSubmit && setDone(true)}
+                  onClick={submitConsult}
                   style={{ opacity: canSubmit ? 1 : 0.4, pointerEvents: canSubmit ? "auto" : "none" }}
                 >
                   Request consultation <Arrow />
